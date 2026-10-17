@@ -114,20 +114,6 @@
       "status": "approved"
     },
     {
-      "file": "public/media/chista/emblem-256.webp",
-      "sha256": "84a1d5e5a8692b7c05c1dd9f9f92eb95a08ea2f55d38420e1abff12d97b88665",
-      "bytes": 109440,
-      "width": 256,
-      "height": 256,
-      "sourceRepo": "OAR-NOVA-Games/Chista",
-      "sourceRevision": "418bf4d4ffdb58773f84626f82828d2e8cdc752e",
-      "sourcePath": "apps/web/public/assets/chista/brand/emblem-256w.webp",
-      "sourceSha256": "84a1d5e5a8692b7c05c1dd9f9f92eb95a08ea2f55d38420e1abff12d97b88665",
-      "transform": "byte-identical copy",
-      "purpose": "Chista emblem",
-      "status": "approved"
-    },
-    {
       "file": "public/media/chista/night-1920.webp",
       "sha256": "f52ef1efa93991b45d83333a292d0edd8eb4421e0804843752ef054e745f2d7d",
       "bytes": 365498,
@@ -156,20 +142,6 @@
       "status": "approved"
     },
     {
-      "file": "public/media/chista/night-portrait-1080.webp",
-      "sha256": "95318ba778d99812d18c0ec71af6fc6047b48e31365f361ec83b9dbcdb14cc9b",
-      "bytes": 503562,
-      "width": 1080,
-      "height": 1920,
-      "sourceRepo": "OAR-NOVA-Games/Chista",
-      "sourceRevision": "418bf4d4ffdb58773f84626f82828d2e8cdc752e",
-      "sourcePath": "apps/web/public/assets/chista/splash/default-night/default-night-mobile-portrait-1080x1920.webp",
-      "sourceSha256": "95318ba778d99812d18c0ec71af6fc6047b48e31365f361ec83b9dbcdb14cc9b",
-      "transform": "byte-identical copy",
-      "purpose": "Chista chapter art (phone, high density)",
-      "status": "approved"
-    },
-    {
       "file": "public/media/chista/night-portrait-540.webp",
       "sha256": "6d687115d5dc5b1d308e6e8122e43370dbd9212977d94502c74f54f9bf86d04b",
       "bytes": 108084,
@@ -181,6 +153,20 @@
       "sourceSha256": "95318ba778d99812d18c0ec71af6fc6047b48e31365f361ec83b9dbcdb14cc9b",
       "transform": "resize width 540, webp q80",
       "purpose": "Chista chapter art (phone)",
+      "status": "approved"
+    },
+    {
+      "file": "public/media/chista/night-portrait-720.webp",
+      "sha256": "beab9dca551087b2ebadcd517a3443d9b4f6c4ec9c8a10a6e3d4d5606397e50a",
+      "bytes": 125312,
+      "width": 720,
+      "height": 1280,
+      "sourceRepo": "OAR-NOVA-Games/Chista",
+      "sourceRevision": "418bf4d4ffdb58773f84626f82828d2e8cdc752e",
+      "sourcePath": "apps/web/public/assets/chista/splash/default-night/default-night-mobile-portrait-1080x1920.webp",
+      "sourceSha256": "95318ba778d99812d18c0ec71af6fc6047b48e31365f361ec83b9dbcdb14cc9b",
+      "transform": "resize width 720, webp q74",
+      "purpose": "Chista chapter art (phone, high density)",
       "status": "approved"
     },
     {
@@ -240,20 +226,6 @@
       "status": "approved"
     },
     {
-      "file": "public/media/yarizan/app-icon-512.webp",
-      "sha256": "21a8b00ce1e74c73edf040469da6d2b875e2549bb6761e851b1f6e9f87291ea4",
-      "bytes": 146588,
-      "width": 512,
-      "height": 512,
-      "sourceRepo": "osameh15/YariZan",
-      "sourceRevision": "30ffa0580f6f743ee4d5241585b584d1dad6ef1a",
-      "sourcePath": "docs/YariZan_Brand_Kit_v1/05_Web/YariZan_AppIcon_512.webp",
-      "sourceSha256": "21a8b00ce1e74c73edf040469da6d2b875e2549bb6761e851b1f6e9f87291ea4",
-      "transform": "byte-identical copy",
-      "purpose": "YariZan app icon",
-      "status": "approved"
-    },
-    {
       "file": "public/media/og/studio.png",
       "sha256": "fdb7ffffa5c88f0fa524b7b87e8585140f8a3f931d475222935322fb5cd995ee",
       "bytes": 44890,
@@ -307,20 +279,6 @@
       "sourceSha256": "708ad4ca30e60640d57f6906f7cb86e784fc7c387e05abce8998a2c2c544cae7",
       "transform": "logo scaled to height 360, centred on #f3ecdc 1200x630",
       "purpose": "Open Graph card (YariZan)",
-      "status": "derived from approved"
-    },
-    {
-      "file": "public/media/icons/icon-512.png",
-      "sha256": "b85b9072f78e386a58e28e42147d185cf8438dd036dd1d4d7f2ba49357155502",
-      "bytes": 48572,
-      "width": 512,
-      "height": 512,
-      "sourceRepo": "OAR-NOVA-Games/Chista",
-      "sourceRevision": "418bf4d4ffdb58773f84626f82828d2e8cdc752e",
-      "sourcePath": "docs/brand/studio/oar-nova-games-logo-1024.png",
-      "sourceSha256": "7ded70bab5d9bc9ff22f3aa953d7562b96a48152e52f4de5932a516df5aab2c0",
-      "transform": "logo on #10100f square 512px",
-      "purpose": "PWA/touch icon",
       "status": "derived from approved"
     },
     {

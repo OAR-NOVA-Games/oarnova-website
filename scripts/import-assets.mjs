@@ -101,14 +101,6 @@ const jobs = [
     status: 'approved',
   },
   {
-    out: 'chista/emblem-256.webp',
-    src: 'chista',
-    path: 'apps/web/public/assets/chista/brand/emblem-256w.webp',
-    op: 'copy',
-    purpose: 'Chista emblem',
-    status: 'approved',
-  },
-  {
     out: 'chista/night-1920.webp',
     src: 'chista',
     path: 'apps/web/public/assets/chista/splash/default-night/default-night-desktop-landscape-1920x1080.webp',
@@ -127,14 +119,6 @@ const jobs = [
     status: 'approved',
   },
   {
-    out: 'chista/night-portrait-1080.webp',
-    src: 'chista',
-    path: 'apps/web/public/assets/chista/splash/default-night/default-night-mobile-portrait-1080x1920.webp',
-    op: 'copy',
-    purpose: 'Chista chapter art (phone, high density)',
-    status: 'approved',
-  },
-  {
     out: 'chista/night-portrait-540.webp',
     src: 'chista',
     path: 'apps/web/public/assets/chista/splash/default-night/default-night-mobile-portrait-1080x1920.webp',
@@ -142,6 +126,16 @@ const jobs = [
     width: 540,
     quality: 80,
     purpose: 'Chista chapter art (phone)',
+    status: 'approved',
+  },
+  {
+    out: 'chista/night-portrait-720.webp',
+    src: 'chista',
+    path: 'apps/web/public/assets/chista/splash/default-night/default-night-mobile-portrait-1080x1920.webp',
+    op: 'webp',
+    width: 720,
+    quality: 74,
+    purpose: 'Chista chapter art (phone, high density)',
     status: 'approved',
   },
 
@@ -180,14 +174,6 @@ const jobs = [
     width: 512,
     lossless: true,
     purpose: 'YariZan primary logo',
-    status: 'approved',
-  },
-  {
-    out: 'yarizan/app-icon-512.webp',
-    src: 'yarizan',
-    path: 'docs/YariZan_Brand_Kit_v1/05_Web/YariZan_AppIcon_512.webp',
-    op: 'copy',
-    purpose: 'YariZan app icon',
     status: 'approved',
   },
 
@@ -230,15 +216,6 @@ const jobs = [
     bg: '#f3ecdc',
     logoHeight: 360,
     purpose: 'Open Graph card (YariZan)',
-    status: 'derived from approved',
-  },
-  {
-    out: 'icons/icon-512.png',
-    src: 'chista',
-    path: 'docs/brand/studio/oar-nova-games-logo-1024.png',
-    op: 'icon',
-    size: 512,
-    purpose: 'PWA/touch icon',
     status: 'derived from approved',
   },
   {

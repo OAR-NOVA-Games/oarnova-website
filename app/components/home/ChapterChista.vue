@@ -33,7 +33,7 @@ useMotion(root, ({ gsap, compact }) => {
       <picture>
         <source
           media="(max-width: 767px)"
-          srcset="/media/chista/night-portrait-540.webp 540w, /media/chista/night-portrait-1080.webp 1080w"
+          srcset="/media/chista/night-portrait-540.webp 540w, /media/chista/night-portrait-720.webp 720w"
           sizes="100vw"
           width="540"
           height="960"
