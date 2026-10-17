@@ -28,7 +28,11 @@ Product palettes are local to their chapters and never promoted to studio-wide a
 | Body / UI   | Archivo 100% width                                                               | Vazirmatn, line-height 1.95                        |
 | Meta labels | Archivo 600, tracked uppercase 11px                                              | Vazirmatn 12.5px, no tracking                      |
 
-All fonts are OFL, self-hosted via Fontsource, split by `unicode-range`, `font-display: swap`.
+All fonts are OFL 1.1 and self-hosted with `font-display: swap`. Archivo and Vazirmatn are trimmed by
+`scripts/build-fonts.mjs` to the glyphs and variation ranges the design uses (Archivo wdth 62–100 %,
+wght 400–850; Vazirmatn wght 400–900): 90 → 53 KB and 46 → 33 KB, letterforms unchanged. Only the page
+language's face is preloaded. English pages show «فارسی» in a system Persian face. Instrument Serif comes
+from Fontsource.
 
 ## Composition rules
 

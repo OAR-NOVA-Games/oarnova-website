@@ -23,7 +23,7 @@ any violation.
 - Brand assets are limited to the approved, public-safe set in `assets/asset-manifest.json`;
   development screenshots with prices or phone numbers were deliberately excluded.
 
-## Dependency audit (2026-10-17)
+## Dependency audit (re-verified 2026-10-17)
 
 `npm audit` reports two **high** advisories, both in build/dev tooling only:
 
@@ -36,3 +36,21 @@ Both list every version as affected (no patched release). `npm audit fix` change
 suggested `--force` path downgrades Nuxt to 4.1.3 and is not a fix. CI therefore blocks on
 **critical** advisories, prints the full report, and blocks newly introduced high-severity
 dependencies in pull requests via dependency review. Dependabot will raise updates when patches exist.
+
+Re-verification: GitHub Advisory Database lists both as affecting all versions (`braces <= 3.0.3`,
+`node-forge <= 1.4.0`) with **no first patched version**. `npm ls` shows a single path for each
+(`nuxt → @nuxt/nitro-server → nitropack → globby → … → braces`, `… → nitropack → listhen → node-forge`);
+neither package name occurs anywhere in `.output/public`. `npm audit` counts 11 "high" entries, all of them
+these two advisories propagated through their dependents. Dependency review allows exactly these two
+GHSA IDs (`.github/workflows/ci.yml`); review again when Dependabot reports a patch or Nuxt drops the path.
+
+## Runtime behaviour
+
+- Executable inline scripts: none (checked by `scripts/check-dist.mjs`); E2E runs under the production CSP.
+- Third-party requests: none; CSP `default-src 'self'` would block them and E2E fails on CSP errors.
+- Cookies / localStorage: none. The only storage access in shipped code is Nuxt's internal
+  `sessionStorage['nuxt:reload']` guard, used only when a deployed chunk is missing after an update.
+- External links: only the three permanent game sites (`target=_blank rel=noopener`) and two `mailto:` links.
+- Source maps: not published.
+- GitHub: secret scanning and push protection, Dependabot alerts and security updates are enabled
+  (no open secret-scanning alerts on 2026-10-17).

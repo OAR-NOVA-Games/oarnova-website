@@ -22,7 +22,9 @@ E2E suites:
 - `motion.spec.ts` — GSAP actually runs (contexts, `motion-ready`, inline transforms that settle at rest),
   ScrollTriggers destroyed on client navigation and language switch, no scroll hijacking/pinning,
   reduced-motion path, no-JS path, gate fallback when bundles are blocked.
-- `a11y.spec.ts` — axe WCAG 2.1 A/AA on all pages, desktop + mobile.
+- `a11y.spec.ts` — axe WCAG 2.1 A/AA on all pages, desktop + mobile; heading names keep word boundaries.
+- `widths.spec.ts` — every page at 320, 360, 600, 768, 1024, 1280, 1920 and 2560 px: no page overflow, no
+  heading outside the viewport, no text cut by a heading's line mask.
 
 Browsers: CI installs Playwright Chromium. Locally, if the Playwright CDN is unreachable, set
 `PW_CHANNEL=chrome` (or `msedge`) to use an installed browser.

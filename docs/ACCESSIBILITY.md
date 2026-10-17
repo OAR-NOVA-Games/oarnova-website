@@ -20,4 +20,9 @@ Target: WCAG 2.1 AA.
 Automated: `tests/e2e/a11y.spec.ts` runs axe-core (wcag2a/aa, wcag21a/aa) on every EN/FA page and both
 404 pages at desktop and mobile widths — 0 violations at the time of writing.
 
-Not yet done: a manual screen-reader pass (NVDA/VoiceOver) in both languages.
+Accessibility-tree review (2026-10-17): English home and Persian Chista page reviewed in Chrome's
+accessibility tree. Found and fixed one defect: the split work heading was announced "wayto"; a real
+space is now rendered and `a11y.spec.ts` asserts the heading name.
+
+Not yet done: a manual screen-reader pass (NVDA/VoiceOver) in both languages — NVDA is not installed on the
+review machine.

@@ -12,3 +12,7 @@ First implementation of the studio website (Worlds in Motion).
 - CSP-compatible output (`script-src 'self'`), reproducible versioned artifact.
 - Unit, static-output, E2E (3 viewports × 2 languages), axe accessibility and Caddy smoke tests; CI and release workflows.
 - Asset provenance manifest and infrastructure handoff.
+- Natural Persian copy across all pages; controller-symbol favicon.
+- Performance: subset fonts, hero-art preload, smaller header mark (mobile Lighthouse ≥ 91 over HTTP/2).
+- Layout audit at eight unusual widths; fixes for 320 px headline/header and ≥ 1920 px hero balance.
+- Release workflow: tag must be a version tag on `main` matching `package.json`; reproducibility proven in the run.
