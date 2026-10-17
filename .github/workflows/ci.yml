@@ -111,11 +111,18 @@ jobs:
           path: site
       - name: Run Caddy with the proposed studio Caddyfile
         run: |
+          # Same image digest as production. ECR Public rate-limits anonymous pulls, so fall
+          # back to Docker Hub's official image; the digest pin guarantees identical content.
+          digest=sha256:d8542f48d34a9cf4e4c11a478865229840e87e4c96ea3f439101f31a5d35f75f
+          image=""
+          for ref in public.ecr.aws/docker/library/caddy@$digest docker.io/library/caddy@$digest; do
+            for i in 1 2 3; do docker pull -q "$ref" && image=$ref && break 2; sleep 5; done
+          done
+          [ -n "$image" ] || { echo "could not pull caddy@$digest"; exit 1; }
           docker run -d --name studio -p 8080:8080 --read-only --user 10001:10001 \
             --tmpfs /data --tmpfs /config \
             -v "$PWD/deploy/Caddyfile:/etc/caddy/Caddyfile:ro" -v "$PWD/site:/srv:ro" \
-            public.ecr.aws/docker/library/caddy:2.11.7-alpine@sha256:d8542f48d34a9cf4e4c11a478865229840e87e4c96ea3f439101f31a5d35f75f \
-            caddy run --config /etc/caddy/Caddyfile --adapter caddyfile
+            "$image" caddy run --config /etc/caddy/Caddyfile --adapter caddyfile
           for i in $(seq 1 30); do curl -sf http://127.0.0.1:8080/healthz && break; sleep 1; done
       - run: bash scripts/smoke.sh http://127.0.0.1:8080
       - if: failure()
