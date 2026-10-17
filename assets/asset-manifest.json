@@ -282,7 +282,7 @@
       "status": "derived from approved"
     },
     {
-      "file": "public/media/icons/favicon-white-32.png",
+      "file": "public/media/icons/symbol-white-32.png",
       "sha256": "54aaa79c68a84222ba5de8b1c9c726cf9dfcc19cc4755ad1df561cdc2e8919ae",
       "bytes": 1455,
       "width": 32,
@@ -296,7 +296,7 @@
       "status": "derived from approved; symbol-only crop approved by owner 2026-10-17"
     },
     {
-      "file": "public/media/icons/favicon-white-64.png",
+      "file": "public/media/icons/symbol-white-64.png",
       "sha256": "cfe78bf83b6dcb6a70e8ebb47e85150384fd20157d79ae491053b5c84fd0f8b2",
       "bytes": 3758,
       "width": 64,

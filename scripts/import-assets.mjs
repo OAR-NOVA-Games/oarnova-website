@@ -219,7 +219,7 @@ const jobs = [
     status: 'derived from approved',
   },
   {
-    out: 'icons/favicon-white-32.png',
+    out: 'icons/symbol-white-32.png',
     src: 'chista',
     path: 'docs/brand/studio/oar-nova-games-logo-1024.png',
     op: 'icon-transparent',
@@ -229,7 +229,7 @@ const jobs = [
     status: 'derived from approved; symbol-only crop approved by owner 2026-10-17',
   },
   {
-    out: 'icons/favicon-white-64.png',
+    out: 'icons/symbol-white-64.png',
     src: 'chista',
     path: 'docs/brand/studio/oar-nova-games-logo-1024.png',
     op: 'icon-transparent',

@@ -45,8 +45,8 @@ export default defineNuxtConfig({
       ],
       link: [
         // Owner choice: the white studio mark on a transparent background.
-        { rel: 'icon', type: 'image/png', sizes: '64x64', href: '/media/icons/favicon-white-64.png' },
-        { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/media/icons/favicon-white-32.png' },
+        { rel: 'icon', type: 'image/png', sizes: '64x64', href: '/media/icons/symbol-white-64.png' },
+        { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/media/icons/symbol-white-32.png' },
         { rel: 'apple-touch-icon', href: '/media/icons/apple-touch-icon.png' },
       ],
       // Without JavaScript the intro failsafe is cancelled outright (see main.css).
