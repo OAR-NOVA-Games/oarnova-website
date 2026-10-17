@@ -1,18 +1,14 @@
 # Known limitations and open decisions
 
-## Owner decisions (merge gates)
+## Owner decisions (resolved at Gate A, 2026-10-17)
 
-1. **Dooma assets** — `images/logo.png` and `images/LoadingBackground.png` are official runtime files
-   but not documented as marketing-approved. Confirm, or supply approved marketing art.
-2. **Copy** — all English and Persian copy is new editorial copy written for this site; the Persian was
-   rewritten for natural phrasing at the owner's request (2026-10-17). The English tagline is
-   _Different worlds. One spark._ The Persian tagline currently reads «جهان‌ها گوناگون‌اند؛ جرقه یکی است.»
-   (from that rewrite); the brief's provisional version is «جهان‌های متفاوت، یک جرقهٔ مشترک.». Owner to choose.
-3. **Game statuses** — Dooma "In development" (repo: initialization phase), Chista "In development"
-   (web, Android planned), YariZan "Coming soon" (new edition in preparation; a legacy 1.1.0 Windows
-   release exists on GitHub and is intentionally not linked). Confirm the labels.
-4. **YariZan imagery** — no product screenshot is shown; candidates contain prices/phone numbers or
-   lack documented approval ([ASSET-PROVENANCE.md](ASSET-PROVENANCE.md)).
+1. **Assets** — studio, Chista and YariZan branding and the Dooma logo and loading background are approved for
+   publication ([ASSET-PROVENANCE.md](ASSET-PROVENANCE.md)). The Dooma banner and YariZan product screenshots
+   stay excluded.
+2. **Copy** — design and bilingual editorial content approved for v1.0.0. Taglines: _Different worlds. One spark._ /
+   «جهان‌ها گوناگون‌اند؛ جرقه یکی است.» (the earlier provisional Persian line is not used).
+3. **Game statuses** — Dooma "In development", Chista "In development", YariZan "Coming soon". No CTA promises
+   availability; external links go only to the permanent game sites.
 
 ## Technical
 
@@ -45,7 +41,7 @@
   itself (125 KB at phone size); reducing it further would mean visibly lower image quality. Lighthouse is
   not a CI gate because shared-runner results are noisy.
 
-- **Screen-reader pass not performed.** NVDA is not installed on the review machine and no VoiceOver device was
+- **Screen-reader pass not performed** (tracked in [issue #2](https://github.com/OAR-NOVA-Games/oarnova-website/issues/2)). NVDA is not installed on the review machine and no VoiceOver device was
   available. Substitute evidence: the Chrome accessibility tree of the English home page and a Persian game page
   was reviewed (landmarks, single h1, labelled regions, localized names, link purposes), axe passes on every page,
   and keyboard flows are tested. A real NVDA/VoiceOver pass in both languages remains open.

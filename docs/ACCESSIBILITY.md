@@ -25,4 +25,4 @@ accessibility tree. Found and fixed one defect: the split work heading was annou
 space is now rendered and `a11y.spec.ts` asserts the heading name.
 
 Not yet done: a manual screen-reader pass (NVDA/VoiceOver) in both languages — NVDA is not installed on the
-review machine.
+review machine. Tracked in [issue #2](https://github.com/OAR-NOVA-Games/oarnova-website/issues/2).

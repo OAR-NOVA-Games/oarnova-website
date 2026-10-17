@@ -55,7 +55,7 @@
       "sourceSha256": "449f472ab96e6d4fdf8e75cff126b318f0a90a246e2118a1942fa705ab685617",
       "transform": "resize width 512, webp lossless",
       "purpose": "Dooma logo on chapter and detail page",
-      "status": "official-runtime-asset; owner confirmation requested"
+      "status": "approved by owner for marketing use 2026-10-17"
     },
     {
       "file": "public/media/dooma/logo-1024.webp",
@@ -69,7 +69,7 @@
       "sourceSha256": "449f472ab96e6d4fdf8e75cff126b318f0a90a246e2118a1942fa705ab685617",
       "transform": "webp lossless",
       "purpose": "Dooma logo, high density",
-      "status": "official-runtime-asset; owner confirmation requested"
+      "status": "approved by owner for marketing use 2026-10-17"
     },
     {
       "file": "public/media/dooma/field-480.webp",
@@ -83,7 +83,7 @@
       "sourceSha256": "78f783782b133cb86bd41d7affd7d8d5810f5c0e6f588df8e65ca152f712c90b",
       "transform": "resize width 480, webp q82",
       "purpose": "Dooma chapter field (mobile)",
-      "status": "official-runtime-asset; owner confirmation requested"
+      "status": "approved by owner for marketing use 2026-10-17"
     },
     {
       "file": "public/media/dooma/field-941.webp",
@@ -97,7 +97,7 @@
       "sourceSha256": "78f783782b133cb86bd41d7affd7d8d5810f5c0e6f588df8e65ca152f712c90b",
       "transform": "webp q82",
       "purpose": "Dooma chapter field (desktop)",
-      "status": "official-runtime-asset; owner confirmation requested"
+      "status": "approved by owner for marketing use 2026-10-17"
     },
     {
       "file": "public/media/chista/logo-400.webp",
@@ -265,7 +265,7 @@
       "sourceSha256": "449f472ab96e6d4fdf8e75cff126b318f0a90a246e2118a1942fa705ab685617",
       "transform": "logo scaled to height 560, centred on #0a1720 1200x630",
       "purpose": "Open Graph card (Dooma)",
-      "status": "derived; owner confirmation requested"
+      "status": "derived from owner-approved 2026-10-17"
     },
     {
       "file": "public/media/og/chista.jpg",

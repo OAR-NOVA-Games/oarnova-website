@@ -15,4 +15,7 @@ First implementation of the studio website (Worlds in Motion).
 - Natural Persian copy across all pages; controller-symbol favicon.
 - Performance: subset fonts, hero-art preload, smaller header mark (mobile Lighthouse ≥ 91 over HTTP/2).
 - Layout audit at eight unusual widths; fixes for 320 px headline/header and ≥ 1920 px hero balance.
+- Caching: only content-hashed `/_nuxt/` bundles are immutable; the Nuxt build manifest and `version.json` always revalidate; payloads, sitemap and robots are cached like HTML.
+- SEO: sitemap `lastmod`, `Organization` + `WebSite` structured data, search-console launch steps.
+- Owner decisions recorded (assets, taglines, statuses); manual screen-reader review tracked in issue #2.
 - Release workflow: tag must be a version tag on `main` matching `package.json`; reproducibility proven in the run.

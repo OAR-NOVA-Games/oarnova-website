@@ -62,7 +62,7 @@ const jobs = [
     width: 512,
     lossless: true,
     purpose: 'Dooma logo on chapter and detail page',
-    status: 'official-runtime-asset; owner confirmation requested',
+    status: 'approved by owner for marketing use 2026-10-17',
   },
   {
     out: 'dooma/logo-1024.webp',
@@ -71,7 +71,7 @@ const jobs = [
     op: 'webp',
     lossless: true,
     purpose: 'Dooma logo, high density',
-    status: 'official-runtime-asset; owner confirmation requested',
+    status: 'approved by owner for marketing use 2026-10-17',
   },
   {
     out: 'dooma/field-480.webp',
@@ -81,7 +81,7 @@ const jobs = [
     width: 480,
     quality: 82,
     purpose: 'Dooma chapter field (mobile)',
-    status: 'official-runtime-asset; owner confirmation requested',
+    status: 'approved by owner for marketing use 2026-10-17',
   },
   {
     out: 'dooma/field-941.webp',
@@ -90,7 +90,7 @@ const jobs = [
     op: 'webp',
     quality: 82,
     purpose: 'Dooma chapter field (desktop)',
-    status: 'official-runtime-asset; owner confirmation requested',
+    status: 'approved by owner for marketing use 2026-10-17',
   },
 
   // Chista — approved raster v1 logo/emblem and Default Night splash.
@@ -206,7 +206,7 @@ const jobs = [
     bg: '#0a1720',
     logoHeight: 560,
     purpose: 'Open Graph card (Dooma)',
-    status: 'derived; owner confirmation requested',
+    status: 'derived from owner-approved 2026-10-17',
   },
   {
     out: 'og/chista.jpg',
