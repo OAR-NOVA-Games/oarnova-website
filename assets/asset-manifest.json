@@ -283,45 +283,45 @@
     },
     {
       "file": "public/media/icons/favicon-white-32.png",
-      "sha256": "877a37fdd641abed69bdb13f49bc50283379bdeec2bc248e1ea0be37bd68f3a5",
-      "bytes": 1501,
+      "sha256": "54aaa79c68a84222ba5de8b1c9c726cf9dfcc19cc4755ad1df561cdc2e8919ae",
+      "bytes": 1455,
       "width": 32,
       "height": 32,
       "sourceRepo": "OAR-NOVA-Games/Chista",
       "sourceRevision": "418bf4d4ffdb58773f84626f82828d2e8cdc752e",
       "sourcePath": "docs/brand/studio/oar-nova-games-logo-1024.png",
       "sourceSha256": "7ded70bab5d9bc9ff22f3aa953d7562b96a48152e52f4de5932a516df5aab2c0",
-      "transform": "transparent margins trimmed, contained in 32px transparent square",
-      "purpose": "Favicon (dark browser UI), white mark on transparent",
-      "status": "derived from approved"
+      "transform": "controller symbol only (wordmark removed), transparent margins trimmed, contained in 32px transparent square",
+      "purpose": "Favicon, white controller symbol on transparent",
+      "status": "derived from approved; symbol-only crop approved by owner 2026-10-17"
     },
     {
       "file": "public/media/icons/favicon-white-64.png",
-      "sha256": "2362ca82c23eba60cc53486848d698408d4e8aa33111608c866f2bad9340c4ec",
-      "bytes": 4003,
+      "sha256": "cfe78bf83b6dcb6a70e8ebb47e85150384fd20157d79ae491053b5c84fd0f8b2",
+      "bytes": 3758,
       "width": 64,
       "height": 64,
       "sourceRepo": "OAR-NOVA-Games/Chista",
       "sourceRevision": "418bf4d4ffdb58773f84626f82828d2e8cdc752e",
       "sourcePath": "docs/brand/studio/oar-nova-games-logo-1024.png",
       "sourceSha256": "7ded70bab5d9bc9ff22f3aa953d7562b96a48152e52f4de5932a516df5aab2c0",
-      "transform": "transparent margins trimmed, contained in 64px transparent square",
-      "purpose": "Favicon high density (dark browser UI)",
-      "status": "derived from approved"
+      "transform": "controller symbol only (wordmark removed), transparent margins trimmed, contained in 64px transparent square",
+      "purpose": "Favicon, high density",
+      "status": "derived from approved; symbol-only crop approved by owner 2026-10-17"
     },
     {
       "file": "public/media/icons/apple-touch-icon.png",
-      "sha256": "85293a9209a4d3f556aed4ab788eb8a607fcc36bfe7dcd919a75060e1f742f79",
-      "bytes": 9949,
+      "sha256": "e300869514cc5a6b967a0cf2c44bde6019357d621ee3a6c11c0969f266f35e3f",
+      "bytes": 10400,
       "width": 180,
       "height": 180,
       "sourceRepo": "OAR-NOVA-Games/Chista",
       "sourceRevision": "418bf4d4ffdb58773f84626f82828d2e8cdc752e",
       "sourcePath": "docs/brand/studio/oar-nova-games-logo-1024.png",
       "sourceSha256": "7ded70bab5d9bc9ff22f3aa953d7562b96a48152e52f4de5932a516df5aab2c0",
-      "transform": "logo on #10100f square 180px",
+      "transform": "controller symbol only, logo on #10100f square 180px",
       "purpose": "Apple touch icon",
-      "status": "derived from approved"
+      "status": "derived from approved; symbol-only crop approved by owner 2026-10-17"
     }
   ]
 }

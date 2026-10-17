@@ -224,8 +224,9 @@ const jobs = [
     path: 'docs/brand/studio/oar-nova-games-logo-1024.png',
     op: 'icon-transparent',
     size: 32,
-    purpose: 'Favicon (dark browser UI), white mark on transparent',
-    status: 'derived from approved',
+    purpose: 'Favicon, white controller symbol on transparent',
+    markOnly: true,
+    status: 'derived from approved; symbol-only crop approved by owner 2026-10-17',
   },
   {
     out: 'icons/favicon-white-64.png',
@@ -233,8 +234,9 @@ const jobs = [
     path: 'docs/brand/studio/oar-nova-games-logo-1024.png',
     op: 'icon-transparent',
     size: 64,
-    purpose: 'Favicon high density (dark browser UI)',
-    status: 'derived from approved',
+    purpose: 'Favicon, high density',
+    markOnly: true,
+    status: 'derived from approved; symbol-only crop approved by owner 2026-10-17',
   },
   {
     out: 'icons/apple-touch-icon.png',
@@ -243,9 +245,28 @@ const jobs = [
     op: 'icon',
     size: 180,
     purpose: 'Apple touch icon',
-    status: 'derived from approved',
+    markOnly: true,
+    status: 'derived from approved; symbol-only crop approved by owner 2026-10-17',
   },
 ]
+
+// Controller symbol only (owner decision 2026-10-17): the studio logo cut above its wordmark,
+// at the first fully transparent band below mid-height, then trimmed. Lines are not redrawn.
+async function markOnly(input) {
+  const { data, info } = await sharp(input).ensureAlpha().raw().toBuffer({ resolveWithObject: true })
+  const empty = (y) => {
+    for (let x = 0; x < info.width; x++) if (data[(y * info.width + x) * 4 + 3] > 40) return false
+    return true
+  }
+  let cut = 0
+  for (let y = Math.floor(info.height * 0.55), run = 0; y < info.height && !cut; y++) {
+    run = empty(y) ? run + 1 : 0
+    if (run === 15) cut = y - 14
+  }
+  if (!cut) throw new Error('no gap between symbol and wordmark')
+  const top = await sharp(input).extract({ left: 0, top: 0, width: info.width, height: cut }).png().toBuffer()
+  return sharp(top).trim().toBuffer()
+}
 
 const sha256 = (buf) => createHash('sha256').update(buf).digest('hex')
 
@@ -273,23 +294,26 @@ async function render(job, input) {
     }
     case 'icon-transparent': {
       // Empty transparent margins are trimmed so the mark fills the tab; the artwork itself is untouched.
-      const logo = await sharp(input).trim().toBuffer()
+      const logo = job.markOnly ? await markOnly(input) : await sharp(input).trim().toBuffer()
       const buf = await sharp(logo)
         .resize(job.size, job.size, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } })
         .png({ compressionLevel: 9 })
         .toBuffer()
-      return { buf, transform: `transparent margins trimmed, contained in ${job.size}px transparent square` }
+      return {
+        buf,
+        transform: `${job.markOnly ? 'controller symbol only (wordmark removed), ' : ''}transparent margins trimmed, contained in ${job.size}px transparent square`,
+      }
     }
     case 'icon': {
       const pad = Math.round(job.size * 0.08)
-      const logo = await sharp(input)
-        .resize(job.size - pad * 2, job.size - pad * 2)
+      const logo = await sharp(job.markOnly ? await markOnly(input) : input)
+        .resize(job.size - pad * 2, job.size - pad * 2, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } })
         .toBuffer()
       const buf = await sharp({ create: { width: job.size, height: job.size, channels: 3, background: INK } })
         .composite([{ input: logo, gravity: 'centre' }])
         .png({ compressionLevel: 9 })
         .toBuffer()
-      return { buf, transform: `logo on ${INK} square ${job.size}px` }
+      return { buf, transform: `${job.markOnly ? 'controller symbol only, ' : ''}logo on ${INK} square ${job.size}px` }
     }
   }
   throw new Error(`unknown op ${job.op}`)
