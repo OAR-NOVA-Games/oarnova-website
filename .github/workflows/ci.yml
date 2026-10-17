@@ -157,5 +157,6 @@ jobs:
         uses: actions/dependency-review-action@a1d282b36b6f3519aa1f3fc636f609c47dddb294 # v5.0.0
         with:
           fail-on-severity: high
-          # braces (Nuxt build-time glob matching): no patched release; not shipped. See docs/SECURITY.md.
-          allow-ghsas: GHSA-vfj7-8cjw-p6xm
+          # Reviewed in docs/SECURITY.md: braces (build-time glob matching) and node-forge (dev-server
+          # HTTPS only). No patched releases; neither reaches the static output.
+          allow-ghsas: GHSA-vfj7-8cjw-p6xm, GHSA-86w9-cpqp-85rv
