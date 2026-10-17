@@ -282,6 +282,34 @@
       "status": "derived from approved"
     },
     {
+      "file": "public/media/icons/favicon-white-32.png",
+      "sha256": "877a37fdd641abed69bdb13f49bc50283379bdeec2bc248e1ea0be37bd68f3a5",
+      "bytes": 1501,
+      "width": 32,
+      "height": 32,
+      "sourceRepo": "OAR-NOVA-Games/Chista",
+      "sourceRevision": "418bf4d4ffdb58773f84626f82828d2e8cdc752e",
+      "sourcePath": "docs/brand/studio/oar-nova-games-logo-1024.png",
+      "sourceSha256": "7ded70bab5d9bc9ff22f3aa953d7562b96a48152e52f4de5932a516df5aab2c0",
+      "transform": "transparent margins trimmed, contained in 32px transparent square",
+      "purpose": "Favicon (dark browser UI), white mark on transparent",
+      "status": "derived from approved"
+    },
+    {
+      "file": "public/media/icons/favicon-white-64.png",
+      "sha256": "2362ca82c23eba60cc53486848d698408d4e8aa33111608c866f2bad9340c4ec",
+      "bytes": 4003,
+      "width": 64,
+      "height": 64,
+      "sourceRepo": "OAR-NOVA-Games/Chista",
+      "sourceRevision": "418bf4d4ffdb58773f84626f82828d2e8cdc752e",
+      "sourcePath": "docs/brand/studio/oar-nova-games-logo-1024.png",
+      "sourceSha256": "7ded70bab5d9bc9ff22f3aa953d7562b96a48152e52f4de5932a516df5aab2c0",
+      "transform": "transparent margins trimmed, contained in 64px transparent square",
+      "purpose": "Favicon high density (dark browser UI)",
+      "status": "derived from approved"
+    },
+    {
       "file": "public/media/icons/apple-touch-icon.png",
       "sha256": "85293a9209a4d3f556aed4ab788eb8a607fcc36bfe7dcd919a75060e1f742f79",
       "bytes": 9949,
@@ -293,20 +321,6 @@
       "sourceSha256": "7ded70bab5d9bc9ff22f3aa953d7562b96a48152e52f4de5932a516df5aab2c0",
       "transform": "logo on #10100f square 180px",
       "purpose": "Apple touch icon",
-      "status": "derived from approved"
-    },
-    {
-      "file": "public/media/icons/favicon-48.png",
-      "sha256": "512d6036bec03ed73931b5795d925becc2dad9ce882627c7b4a6ac7aecf72fe8",
-      "bytes": 1729,
-      "width": 48,
-      "height": 48,
-      "sourceRepo": "OAR-NOVA-Games/Chista",
-      "sourceRevision": "418bf4d4ffdb58773f84626f82828d2e8cdc752e",
-      "sourcePath": "docs/brand/studio/oar-nova-games-logo-1024.png",
-      "sourceSha256": "7ded70bab5d9bc9ff22f3aa953d7562b96a48152e52f4de5932a516df5aab2c0",
-      "transform": "logo on #10100f square 48px",
-      "purpose": "Favicon",
       "status": "derived from approved"
     }
   ]

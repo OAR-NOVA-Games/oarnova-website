@@ -219,21 +219,30 @@ const jobs = [
     status: 'derived from approved',
   },
   {
+    out: 'icons/favicon-white-32.png',
+    src: 'chista',
+    path: 'docs/brand/studio/oar-nova-games-logo-1024.png',
+    op: 'icon-transparent',
+    size: 32,
+    purpose: 'Favicon (dark browser UI), white mark on transparent',
+    status: 'derived from approved',
+  },
+  {
+    out: 'icons/favicon-white-64.png',
+    src: 'chista',
+    path: 'docs/brand/studio/oar-nova-games-logo-1024.png',
+    op: 'icon-transparent',
+    size: 64,
+    purpose: 'Favicon high density (dark browser UI)',
+    status: 'derived from approved',
+  },
+  {
     out: 'icons/apple-touch-icon.png',
     src: 'chista',
     path: 'docs/brand/studio/oar-nova-games-logo-1024.png',
     op: 'icon',
     size: 180,
     purpose: 'Apple touch icon',
-    status: 'derived from approved',
-  },
-  {
-    out: 'icons/favicon-48.png',
-    src: 'chista',
-    path: 'docs/brand/studio/oar-nova-games-logo-1024.png',
-    op: 'icon',
-    size: 48,
-    purpose: 'Favicon',
     status: 'derived from approved',
   },
 ]
@@ -261,6 +270,15 @@ async function render(job, input) {
         .png({ compressionLevel: 9 })
         .toBuffer()
       return { buf, transform: `logo scaled to height ${job.logoHeight}, centred on ${job.bg} 1200x630` }
+    }
+    case 'icon-transparent': {
+      // Empty transparent margins are trimmed so the mark fills the tab; the artwork itself is untouched.
+      const logo = await sharp(input).trim().toBuffer()
+      const buf = await sharp(logo)
+        .resize(job.size, job.size, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } })
+        .png({ compressionLevel: 9 })
+        .toBuffer()
+      return { buf, transform: `transparent margins trimmed, contained in ${job.size}px transparent square` }
     }
     case 'icon': {
       const pad = Math.round(job.size * 0.08)

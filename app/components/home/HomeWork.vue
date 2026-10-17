@@ -33,7 +33,7 @@ useMotion(root, ({ gsap }) => {
       <h2 id="work-title" class="display title">
         <span class="w-line">{{ t.home.work[0] }}</span>
         <span class="w-line">
-          <span class="outline">{{ t.home.work[1] }}</span
+          <span class="hollow">{{ t.home.work[1] }}</span
           ><span v-if="t.home.work[2]" class="after">{{ t.home.work[2] }}</span>
         </span>
         <span class="w-line"
@@ -73,12 +73,12 @@ useMotion(root, ({ gsap }) => {
   display: block;
   padding-bottom: 0.04em;
 }
-.outline {
+/* Outlined word in English only: Persian letterforms stroke poorly, so the key phrase takes the accent colour. */
+html[lang='en'] .hollow {
   color: transparent;
   -webkit-text-stroke: 1.5px #23271f;
 }
-html[lang='fa'] .outline {
-  -webkit-text-stroke: 0;
+html[lang='fa'] .hollow {
   color: var(--color-moss);
 }
 .after {
