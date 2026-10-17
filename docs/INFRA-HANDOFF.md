@@ -43,70 +43,69 @@ LF line endings only (checked), no symlinks, no executables.
 | `acceptance-external.sh` `cdn-content` greps `<h1>OAR NOVA GAMES</h1>` | external                   | **Will fail** — must be updated in the same infra PR (see §4).                                                                                                                                                                                   |
 | infra CI `curl … \| cmp - apps/studio/public/index.html`               | infra CI                   | Still valid.                                                                                                                                                                                                                                     |
 
-## 3. Recommended integration (keeps the existing deploy and rollback model)
+## 3. Integration — implemented in oarnova-infrastructure PR #24
 
-The runbook already defines the studio flow: _static files in `apps/studio/public/` → PR →
-CI → merge → `scripts/deploy.sh studio`_ with automatic rollback when acceptance fails.
-Keep it. One reviewed infrastructure PR:
+[OAR-NOVA-Games/oarnova-infrastructure#24](https://github.com/OAR-NOVA-Games/oarnova-infrastructure/pull/24)
+(Draft) keeps the existing model: static files in `apps/studio/public/` → PR → CI → merge →
+`scripts/deploy.sh studio` with automatic rollback.
 
-1. **Import the artifact** into `apps/studio/public/`, replacing the Coming Soon page:
-   ```bash
-   # in an oarnova-infrastructure checkout, on a new branch
-   ver=oarnova-website-1.0.0-<sha7>
-   gh release download v1.0.0 -R OAR-NOVA-Games/oarnova-website -p "$ver.*"   # or the CI artifact
-   test "$(sha256sum "$ver.tar.gz" | cut -d' ' -f1)" = "$(jq -r .archiveSha256 "$ver.json")"
-   rm -rf apps/studio/public && mkdir apps/studio/public
-   tar -xzf "$ver.tar.gz" -C apps/studio/public --no-same-owner
-   (cd apps/studio/public && sha256sum -c --quiet "../../../$ver.SHA256SUMS")
-   cp "$ver.json" apps/studio/RELEASE.json   # provenance: which website commit is deployed
-   ```
-2. **Replace `apps/studio/Caddyfile`** with [`deploy/Caddyfile`](../deploy/Caddyfile) (real 404 status
-   with localized bodies, cache rule for directory URLs, immutable cache for `/_nuxt/*`).
-   `remote-deploy.sh` already restarts the container when the Caddyfile changes.
-3. **Update acceptance checks**:
-   - `scripts/acceptance-external.sh`: replace the `cdn-content` grep with
-     `grep -q '<title>OAR NOVA Games Studio — Worlds in Motion</title>'` and add
-     `chk 200 …/fa/`, `chk 404 …/no-such-page-$R`, and a `version.json` commit check against
-     `apps/studio/RELEASE.json`.
-   - `scripts/acceptance-server.sh`: keep `cmp` of `/`; optionally add `cmp` of `/fa/` and a 404 status check.
-   - infra CI: add the same `/fa/` and 404 checks next to the existing `cmp`.
-4. Leave `infrastructure/traefik/dynamic/studio.yml`, `middlewares.yml` (CSP), the YariZan
-   routers, CDN, DNS, firewall and origin lockdown **unchanged**. None of them need to change.
-5. Merge after review, then deploy with the existing `scripts/deploy.sh studio`.
+| Change                             | Purpose                                                                                                                                                                                                   |
+| ---------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `scripts/import-studio-release.sh` | Verifies archive SHA-256, safe tar entries, every per-file checksum, file count and the `version.json` commit, then replaces `apps/studio/public/` and writes `apps/studio/RELEASE.json`. No `jq` needed. |
+| `apps/studio/Caddyfile`            | This repository's `deploy/Caddyfile` (real localized 404, bounded HTML cache, immutable `/_nuxt/`).                                                                                                       |
+| `scripts/acceptance-server.sh`     | EN/FA routes, both 404 bodies, 308 slash redirect, `version.json`, `/healthz` `no-store`, immutable bundle header.                                                                                        |
+| `scripts/acceptance-external.sh`   | New `<title>` check replaces the legacy `<h1>`; through-CDN routes, localized 404 bodies (detects CDN substitution), release commit, cache headers.                                                       |
+| `.github/workflows/ci.yml`         | Same checks against real Traefik + Caddy in the smoke job; file count vs `RELEASE.json`.                                                                                                                  |
+| `scripts/ci-deploy-rollback.sh`    | New scenarios: failed studio cut-over restores the previous site and Caddyfile byte for byte; successful cut-over serves the new site.                                                                    |
+| `docs/runbook.md`                  | Import procedure; deploy `host` after `studio` so `oarnova-acceptance-server` matches.                                                                                                                    |
 
-Alternative (not recommended now): fetch the artifact on the server at deploy time. It adds
-a network dependency and a second trust path to the deploy; the current `git archive` bundle
-already gives an auditable, SHA-verified record of exactly what is live.
+Unchanged: `apps/studio/compose.yaml`, Traefik configuration (routers, CSP, HSTS, `www` → apex), origin
+lockdown, monitoring, backups, all YariZan files and routes, `remote-deploy.sh`.
 
-Size note: the artifact is ~5 MB (≈4.2 MB of approved brand media). Committing it to the
-infrastructure repo is acceptable at this size; revisit if media grows substantially.
+The PR currently carries a **candidate** artifact (`1d79c44`, built by PR CI from GitHub's merge commit)
+only so infra CI can test the real site. After Gate B it is replaced with the `v1.0.0` release:
+
+```bash
+gh release download v1.0.0 -R OAR-NOVA-Games/oarnova-website -D /tmp/site
+scripts/import-studio-release.sh /tmp/site
+```
+
+Size: ~3.9 MB compressed (≈3.4 MB brand media), committed to the infrastructure repository, which is also
+the documented recovery source for the studio site (`docs/backup-and-dr.md`).
 
 ## 4. Cut-over checklist (owner GO required)
 
-- [ ] Owner approves website PR (art direction, copy, assets marked "owner confirmation requested").
-- [ ] Release tag created; Release workflow produced the artifact; checksums recorded.
-- [ ] Infrastructure PR (§3) reviewed, CI green, merged.
-- [ ] `scripts/deploy.sh studio` from up-to-date `main`; server acceptance passes (auto-rollback otherwise).
-- [ ] Purge Pars Pack CDN cache (whole zone if hostname-scoped purge is unavailable). HTML max-age is 300 s.
-- [ ] External acceptance (`ORIGIN_MODE=locked`) passes, including new `/fa/`, 404 and version checks.
-- [ ] **CDN error pages:** confirm the CDN setting "Show Origin Server Errors" is enabled for the
-      apex, otherwise the CDN replaces the site's 404 page with its own (runbook B13 notes the same
-      for YariZan).
-- [ ] Spot-check `https://oarnova.games/`, `/fa/`, `/games/chista/`, a missing URL, `www` → apex redirect.
-- [ ] Game subdomains and YariZan unaffected (`acceptance-external.sh` YariZan section).
-- [ ] Mailboxes `info@` / `support@oarnova.games` provisioned (the site shows them; it does not
-      claim they are operational).
+- [ ] Gate A — website PR #1 approved (design, copy, assets) and merged; `main` CI green.
+- [ ] Gate B — tag `v1.0.0` on that `main` commit; **Release artifact** workflow green; draft release
+      holds `.tar.gz`, `.SHA256SUMS`, `.json`; record commit, archive SHA-256 and file count.
+- [ ] Gate C — infra PR #24 re-imported from the release (not the candidate), CI green, approved, merged.
+- [ ] Gate D — owner, from a clean up-to-date infrastructure checkout:
+      `OARNOVA_SSH_KEY="$HOME/.ssh/oarnova_laptop_ed25519" scripts/deploy.sh studio` (server acceptance runs
+      inside; automatic rollback on failure), then `scripts/deploy.sh host` (installs the new
+      `oarnova-acceptance-server`).
+- [ ] `sudo oarnova-acceptance-server` on the server; `ORIGIN_MODE=locked YARIZAN=maintenance scripts/acceptance-external.sh`
+      from outside; origin tunnel check where applicable.
+- [ ] CDN purge: HTML is `max-age=300`; purge only if stale HTML is observed after five minutes. A whole-zone purge
+      (if hostname scope is unavailable) also drops YariZan's cached assets — owner approval required.
+- [ ] Browser spot check: `/`, `/fa/`, a game page in each language, a missing URL, console clean.
+- [ ] StatusCake: both studio monitors and the SSL monitor green after at least two 5-minute intervals.
+- [ ] Mailboxes `info@` / `support@` provisioned (the site shows them; it does not claim they work).
+
+Pre-cutover live baseline (2026-10-17, read-only): `/` 200 legacy page; unknown path 404 with the origin's
+empty body (CDN did not substitute an error page); `/healthz` 200 `no-store`.
 
 ## 5. Rollback
 
-- **Automatic:** `remote-deploy.sh studio` snapshots `apps/studio` to
-  `/opt/oarnova/infrastructure/backup/releases/<ts>-studio.tgz` and restores it if acceptance fails.
-- **Manual:** revert the infrastructure merge commit and run `scripts/deploy.sh studio` again
-  (restores the previous `public/` and Caddyfile), then purge the CDN.
-- **Emergency (on server):** `restore_tree` from the latest `<ts>-studio.tgz` as documented in the runbook,
-  then `docker compose up -d --force-recreate` in `/opt/oarnova/apps/studio`.
-- No data, schema or DNS change is involved; rollback is complete once the previous files are served
-  and the CDN cache is purged.
+- **Automatic (tested in infra CI, scenario I):** `remote-deploy.sh studio` snapshots `/opt/oarnova/apps/studio`
+  (public/, Caddyfile, compose.yaml) to `/opt/oarnova/infrastructure/backup/releases/<ts>-studio.tgz`; if health or
+  acceptance fails it restores the snapshot, recreates the studio container and records `rolled-back`.
+- **Manual (post-deploy issue):** revert the infra merge commit on `main`, run `scripts/deploy.sh studio` again
+  (restores the Coming Soon page and the previous Caddyfile through the same verified path), purge the CDN if
+  needed, re-run both acceptance scripts (the external `cdn-content` check will then expect the new title — run
+  the previous revision's script).
+- **Emergency (server):** `restore_tree` the latest `<ts>-studio.tgz` as in the runbook, then
+  `docker compose up -d --force-recreate` in `/opt/oarnova/apps/studio`.
+- None of these touch YariZan, Traefik routing, origin lockdown, database volumes or game infrastructure.
 
 ## 6. Explicitly out of scope
 
