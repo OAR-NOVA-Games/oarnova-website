@@ -203,6 +203,13 @@ html[lang='fa'] .name {
   }
 }
 @media (max-width: 767px) {
+  /* "VOCABULARIES" is the longest unbreakable word on the site: size it to the phone width. */
+  .title {
+    font-size: clamp(44px, 14vw, 100px);
+  }
+  .g-line:nth-child(2) {
+    padding-inline-start: 0;
+  }
   .row-inner {
     grid-template-columns: 1fr;
     gap: 20px;
