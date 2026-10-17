@@ -13,6 +13,27 @@ const story = computed(() => t.value.game.stories[slug.value])
 const next = computed(() => games[gameSlugs[(gameSlugs.indexOf(slug.value) + 1) % gameSlugs.length]!])
 const root = ref<HTMLElement | null>(null)
 
+// The hero art is the LCP element on Dooma and Chista pages: let the browser fetch the
+// rendition for the current viewport before it has parsed CSS and fonts.
+const heroArt: Partial<Record<GameSlug, { media: string; srcset: string; sizes: string }[]>> = {
+  dooma: [{ media: 'all', srcset: '/media/dooma/field-480.webp 480w, /media/dooma/field-941.webp 941w', sizes: '(max-width: 767px) 100vw, 44vw' }],
+  chista: [
+    { media: '(max-width: 767px)', srcset: '/media/chista/night-portrait-540.webp 540w, /media/chista/night-portrait-720.webp 720w', sizes: '100vw' },
+    { media: '(min-width: 768px)', srcset: '/media/chista/night-960.webp 960w, /media/chista/night-1920.webp 1920w', sizes: '50vw' },
+  ],
+}
+useHead(() => ({
+  link: (heroArt[slug.value] ?? []).map((a, i) => ({
+    key: `hero-art-${i}`,
+    rel: 'preload' as const,
+    as: 'image' as const,
+    fetchpriority: 'high' as const,
+    media: a.media,
+    imagesrcset: a.srcset,
+    imagesizes: a.sizes,
+  })),
+}))
+
 useSeo(() => ({
   title: t.value.seo.game[slug.value].title,
   description: t.value.seo.game[slug.value].description,
