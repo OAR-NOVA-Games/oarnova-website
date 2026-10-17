@@ -5,7 +5,7 @@
 1. **Dooma assets** — `images/logo.png` and `images/LoadingBackground.png` are official runtime files
    but not documented as marketing-approved. Confirm, or supply approved marketing art.
 2. **Copy** — all English and Persian copy is new editorial copy written for this site. The tagline
-   *Different worlds. One spark.* / «جهان‌های متفاوت، یک جرقهٔ مشترک.» is provisional.
+   _Different worlds. One spark._ / «جهان‌های متفاوت، یک جرقهٔ مشترک.» is provisional.
 3. **Game statuses** — Dooma "In development" (repo: initialization phase), Chista "In development"
    (web, Android planned), YariZan "Coming soon" (new edition in preparation; a legacy 1.1.0 Windows
    release exists on GitHub and is intentionally not linked). Confirm the labels.

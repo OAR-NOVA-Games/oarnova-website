@@ -31,22 +31,22 @@ LF line endings only (checked), no symlinks, no executables.
 
 ## 2. Compatibility with the current stack (verified)
 
-| Concern | Current infra | Result |
-|---|---|---|
-| CSP `csp-static` (`script-src 'self'`, no inline) | Traefik middleware | Compatible without changes: all executable inline scripts are externalized at build time; E2E runs with this exact CSP header and fails on any console/CSP error. JSON data blocks (`application/json`, `application/ld+json`) are not executed. |
-| `img-src 'self' data:` | Traefik | Compatible (one `data:` SVG noise texture in CSS). |
-| Fonts | — | Self-hosted woff2 under `/_nuxt/`, `default-src 'self'` suffices. |
-| Static Caddy, read-only bind mount `./public:/srv:ro` | `apps/studio/compose.yaml` | Unchanged. |
-| Directory URLs `/games/` | Caddy `file_server` | Serves `games/index.html`; `/games` → **308** `/games/` (verified with Caddy 2.11.7). |
-| `validate.sh` CRLF / forbidden files | infra CI | Output is LF-only; no `.tgz/.pem/.env` etc. |
-| `acceptance-server.sh` `content-matches-repo` (`cmp` of `/`) | server | Still valid: Caddy serves `index.html` byte-for-byte. |
-| `acceptance-external.sh` `cdn-content` greps `<h1>OAR NOVA GAMES</h1>` | external | **Will fail** — must be updated in the same infra PR (see §4). |
-| infra CI `curl … \| cmp - apps/studio/public/index.html` | infra CI | Still valid. |
+| Concern                                                                | Current infra              | Result                                                                                                                                                                                                                                           |
+| ---------------------------------------------------------------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| CSP `csp-static` (`script-src 'self'`, no inline)                      | Traefik middleware         | Compatible without changes: all executable inline scripts are externalized at build time; E2E runs with this exact CSP header and fails on any console/CSP error. JSON data blocks (`application/json`, `application/ld+json`) are not executed. |
+| `img-src 'self' data:`                                                 | Traefik                    | Compatible (one `data:` SVG noise texture in CSS).                                                                                                                                                                                               |
+| Fonts                                                                  | —                          | Self-hosted woff2 under `/_nuxt/`, `default-src 'self'` suffices.                                                                                                                                                                                |
+| Static Caddy, read-only bind mount `./public:/srv:ro`                  | `apps/studio/compose.yaml` | Unchanged.                                                                                                                                                                                                                                       |
+| Directory URLs `/games/`                                               | Caddy `file_server`        | Serves `games/index.html`; `/games` → **308** `/games/` (verified with Caddy 2.11.7).                                                                                                                                                            |
+| `validate.sh` CRLF / forbidden files                                   | infra CI                   | Output is LF-only; no `.tgz/.pem/.env` etc.                                                                                                                                                                                                      |
+| `acceptance-server.sh` `content-matches-repo` (`cmp` of `/`)           | server                     | Still valid: Caddy serves `index.html` byte-for-byte.                                                                                                                                                                                            |
+| `acceptance-external.sh` `cdn-content` greps `<h1>OAR NOVA GAMES</h1>` | external                   | **Will fail** — must be updated in the same infra PR (see §4).                                                                                                                                                                                   |
+| infra CI `curl … \| cmp - apps/studio/public/index.html`               | infra CI                   | Still valid.                                                                                                                                                                                                                                     |
 
 ## 3. Recommended integration (keeps the existing deploy and rollback model)
 
-The runbook already defines the studio flow: *static files in `apps/studio/public/` → PR →
-CI → merge → `scripts/deploy.sh studio`* with automatic rollback when acceptance fails.
+The runbook already defines the studio flow: _static files in `apps/studio/public/` → PR →
+CI → merge → `scripts/deploy.sh studio`_ with automatic rollback when acceptance fails.
 Keep it. One reviewed infrastructure PR:
 
 1. **Import the artifact** into `apps/studio/public/`, replacing the Coming Soon page:

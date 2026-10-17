@@ -25,19 +25,19 @@ below-the-fold reveals are created by GSAP itself when it runs.
 
 ## Choreography
 
-| Section | Mechanism | Rule |
-|---|---|---|
-| Hero | timeline: masked line rise (`yPercent 112→0`, 1.25 s, `power4.out`, 0.11 s stagger), orbit ring stroke draw, mark fade-scale, metadata fade | Once on load |
-| Hero exit | orbit rotate 24° + scale 1.12; copy drifts −14% (scrub 0.6) | Desktop/tablet only |
-| Work (paper cut) | line-by-line `clip-path` wipe + rise; index fades | Once at 72% |
-| Dooma | field cut open on a diagonal (`clip-path` polygon), grid lines drawn (`stroke-dashoffset`), diamond nodes pop, logo lands (no rotation — identity rule) ; field parallax ±4% | Once at 62%; parallax scrub |
-| Chista | frame opens like a window (`clip-path` inset 10–14% → 0, scrub), scene settles (scale 1.16 → 1), title rises, gold rule drawn | Scrub + once |
-| YariZan | sheets rise then fan like a book opening, grade tabs slide out (`back.out`), logo settles | Once at 75% |
-| Belief | lines rise, underline under the key word drawn last | Once |
-| Contact | lines rise | Once |
-| Inner pages | masked title rise + fades; games index rows wipe in; detail art clip reveal + parallax; step list slides from reading start (RTL aware) | Once |
-| Micro-interactions | nav underline origin follows reading direction; CTA rule contracts and arrow nudges; menu bars morph | CSS transitions |
-| Page transitions | CSS opacity/translate (`page` transition, out-in) | Disabled by reduced motion |
+| Section            | Mechanism                                                                                                                                                                    | Rule                        |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------- |
+| Hero               | timeline: masked line rise (`yPercent 112→0`, 1.25 s, `power4.out`, 0.11 s stagger), orbit ring stroke draw, mark fade-scale, metadata fade                                  | Once on load                |
+| Hero exit          | orbit rotate 24° + scale 1.12; copy drifts −14% (scrub 0.6)                                                                                                                  | Desktop/tablet only         |
+| Work (paper cut)   | line-by-line `clip-path` wipe + rise; index fades                                                                                                                            | Once at 72%                 |
+| Dooma              | field cut open on a diagonal (`clip-path` polygon), grid lines drawn (`stroke-dashoffset`), diamond nodes pop, logo lands (no rotation — identity rule) ; field parallax ±4% | Once at 62%; parallax scrub |
+| Chista             | frame opens like a window (`clip-path` inset 10–14% → 0, scrub), scene settles (scale 1.16 → 1), title rises, gold rule drawn                                                | Scrub + once                |
+| YariZan            | sheets rise then fan like a book opening, grade tabs slide out (`back.out`), logo settles                                                                                    | Once at 75%                 |
+| Belief             | lines rise, underline under the key word drawn last                                                                                                                          | Once                        |
+| Contact            | lines rise                                                                                                                                                                   | Once                        |
+| Inner pages        | masked title rise + fades; games index rows wipe in; detail art clip reveal + parallax; step list slides from reading start (RTL aware)                                      | Once                        |
+| Micro-interactions | nav underline origin follows reading direction; CTA rule contracts and arrow nudges; menu bars morph                                                                         | CSS transitions             |
+| Page transitions   | CSS opacity/translate (`page` transition, out-in)                                                                                                                            | Disabled by reduced motion  |
 
 Animated properties are transforms, opacity and clip-path only; images have intrinsic sizes, so motion
 causes no layout shift.

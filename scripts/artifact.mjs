@@ -33,7 +33,20 @@ await writeFile(join('artifacts', `${name}.SHA256SUMS`), sums.join('\n') + '\n')
 const tarball = join('artifacts', `${name}.tar.gz`)
 const tar = execFileSync(
   'tar',
-  ['--sort=name', `--mtime=${info.committedAt}`, '--owner=0', '--group=0', '--numeric-owner', '--mode=u+rwX,go+rX,go-w', '--format=gnu', '-C', site, '-cf', '-', '.'],
+  [
+    '--sort=name',
+    `--mtime=${info.committedAt}`,
+    '--owner=0',
+    '--group=0',
+    '--numeric-owner',
+    '--mode=u+rwX,go+rX,go-w',
+    '--format=gnu',
+    '-C',
+    site,
+    '-cf',
+    '-',
+    '.',
+  ],
   { maxBuffer: 1 << 30 },
 )
 const gz = execFileSync('gzip', ['-n', '-9'], { input: tar, maxBuffer: 1 << 30 })

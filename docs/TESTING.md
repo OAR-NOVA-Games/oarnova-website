@@ -1,13 +1,13 @@
 # Testing
 
-| Layer | Command | What it proves |
-|---|---|---|
-| Unit (Vitest) | `npm test` | Permanent game URLs and contact addresses; route list in sync; EN/FA copy shape parity, no empty strings, Persian script, no unverifiable claims; locale path helpers |
-| Asset integrity | `npm run check:assets` | Every file in `public/media` is in the manifest with matching SHA-256 and provenance fields |
-| Static output | `npm run generate && npm run check:dist` | All routes + both 404s exist; lang/dir, title, description, single h1, canonical, hreflang, og:image; no executable inline scripts; every local reference resolves; only allowed external URLs and mailto; LF only; sitemap size |
-| E2E (Playwright) | `npm run test:e2e` | Runs against `.output/public` through `scripts/serve.mjs` (production CSP header, 308 slash redirect, real 404s) in three projects: desktop 1440×900, tablet 820×1180, mobile 390×844 |
-| Caddy smoke | `bash scripts/smoke.sh <url>` | Same checks against the real Caddy image with `deploy/Caddyfile` (CI job `caddy`) |
-| Review screenshots | `npx playwright test --config tests/visual/playwright.visual.config.ts` | Full-page EN/FA captures of every page at three widths → `artifacts/screenshots/` (for human review; not pixel assertions) |
+| Layer              | Command                                                                 | What it proves                                                                                                                                                                                                                   |
+| ------------------ | ----------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Unit (Vitest)      | `npm test`                                                              | Permanent game URLs and contact addresses; route list in sync; EN/FA copy shape parity, no empty strings, Persian script, no unverifiable claims; locale path helpers                                                            |
+| Asset integrity    | `npm run check:assets`                                                  | Every file in `public/media` is in the manifest with matching SHA-256 and provenance fields                                                                                                                                      |
+| Static output      | `npm run generate && npm run check:dist`                                | All routes + both 404s exist; lang/dir, title, description, single h1, canonical, hreflang, og:image; no executable inline scripts; every local reference resolves; only allowed external URLs and mailto; LF only; sitemap size |
+| E2E (Playwright)   | `npm run test:e2e`                                                      | Runs against `.output/public` through `scripts/serve.mjs` (production CSP header, 308 slash redirect, real 404s) in three projects: desktop 1440×900, tablet 820×1180, mobile 390×844                                            |
+| Caddy smoke        | `bash scripts/smoke.sh <url>`                                           | Same checks against the real Caddy image with `deploy/Caddyfile` (CI job `caddy`)                                                                                                                                                |
+| Review screenshots | `npx playwright test --config tests/visual/playwright.visual.config.ts` | Full-page EN/FA captures of every page at three widths → `artifacts/screenshots/` (for human review; not pixel assertions)                                                                                                       |
 
 E2E suites:
 

@@ -2,7 +2,7 @@
 
 Official website of **OAR NOVA Games Studio**: a bilingual (English / Persian), fully static,
 art-directed site for the studio and its games **Dooma**, **Chista** and **YariZan**.
-Creative direction: **Worlds in Motion** — *Different worlds. One spark.*
+Creative direction: **Worlds in Motion** — _Different worlds. One spark._
 
 - English: `https://oarnova.games/` · Persian: `https://oarnova.games/fa/`
 - Nuxt 4 · Vue 3 · TypeScript (strict) · Tailwind CSS 4 · GSAP + ScrollTrigger · Vitest · Playwright
@@ -38,18 +38,18 @@ Playwright downloads Chromium; where that is unavailable, use an installed brows
 
 ## Where things live
 
-| Path | Purpose |
-|---|---|
-| `app/content/games.ts` | **Single source of truth** for games: permanent URLs, status, facts, logos |
-| `app/content/copy.ts` | All English and Persian copy (type-checked parity) |
-| `app/composables/` | `useLocale` (routing/locale), `useSeo` (meta, hreflang, JSON-LD), `useMotion` (GSAP lifecycle) |
-| `app/components/home/` | Homepage chapters: hero, work, Dooma, Chista, YariZan, belief, contact |
-| `app/pages/` | Pages; Persian twins are generated under `/fa/` by `nuxt.config.ts` |
-| `app/assets/css/main.css` | Design tokens and base typography |
-| `public/media/` | Approved brand assets (see `assets/asset-manifest.json`) |
-| `scripts/` | Asset import, post-build, checks, artifact, local server, smoke test |
-| `deploy/Caddyfile` | Proposed studio Caddyfile for the infrastructure repository |
-| `tests/unit`, `tests/e2e`, `tests/visual` | Vitest, Playwright, review screenshots |
+| Path                                      | Purpose                                                                                        |
+| ----------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| `app/content/games.ts`                    | **Single source of truth** for games: permanent URLs, status, facts, logos                     |
+| `app/content/copy.ts`                     | All English and Persian copy (type-checked parity)                                             |
+| `app/composables/`                        | `useLocale` (routing/locale), `useSeo` (meta, hreflang, JSON-LD), `useMotion` (GSAP lifecycle) |
+| `app/components/home/`                    | Homepage chapters: hero, work, Dooma, Chista, YariZan, belief, contact                         |
+| `app/pages/`                              | Pages; Persian twins are generated under `/fa/` by `nuxt.config.ts`                            |
+| `app/assets/css/main.css`                 | Design tokens and base typography                                                              |
+| `public/media/`                           | Approved brand assets (see `assets/asset-manifest.json`)                                       |
+| `scripts/`                                | Asset import, post-build, checks, artifact, local server, smoke test                           |
+| `deploy/Caddyfile`                        | Proposed studio Caddyfile for the infrastructure repository                                    |
+| `tests/unit`, `tests/e2e`, `tests/visual` | Vitest, Playwright, review screenshots                                                         |
 
 ## Documentation
 

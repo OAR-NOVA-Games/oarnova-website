@@ -1,13 +1,13 @@
 # Localization
 
-| | English | Persian |
-|---|---|---|
-| Prefix | `/` | `/fa/` |
-| `<html>` | `lang="en" dir="ltr"` | `lang="fa" dir="rtl"` |
-| Copy | `app/content/copy.ts` → `en` | same file → `fa` (typed as `Copy`, must match shape) |
-| Game facts | `games.ts` → `facts.en` | `facts.fa` |
-| Font | Archivo / Instrument Serif | Vazirmatn |
-| Digits | Latin | Persian (`useLocale().num`) |
+|            | English                      | Persian                                              |
+| ---------- | ---------------------------- | ---------------------------------------------------- |
+| Prefix     | `/`                          | `/fa/`                                               |
+| `<html>`   | `lang="en" dir="ltr"`        | `lang="fa" dir="rtl"`                                |
+| Copy       | `app/content/copy.ts` → `en` | same file → `fa` (typed as `Copy`, must match shape) |
+| Game facts | `games.ts` → `facts.en`      | `facts.fa`                                           |
+| Font       | Archivo / Instrument Serif   | Vazirmatn                                            |
+| Digits     | Latin                        | Persian (`useLocale().num`)                          |
 
 - Every page exists in both languages and is prerendered (`scripts/routes.mjs`).
 - The language switch links to the same page in the other language (`switchPath`); from a missing page
