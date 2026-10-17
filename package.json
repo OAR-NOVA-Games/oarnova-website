@@ -20,7 +20,8 @@
     "check:dist": "node scripts/check-dist.mjs",
     "check:assets": "node scripts/check-assets.mjs",
     "artifact": "node scripts/artifact.mjs",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "build:fonts": "node scripts/build-fonts.mjs"
   },
   "dependencies": {
     "@fontsource-variable/archivo": "5.3.0",
@@ -40,6 +41,7 @@
     "eslint": "10.13.0",
     "prettier": "3.9.10",
     "sharp": "0.35.5",
+    "subset-font": "2.9.0",
     "tailwindcss": "4.3.3",
     "typescript": "5.9.3",
     "vitest": "5.0.5",

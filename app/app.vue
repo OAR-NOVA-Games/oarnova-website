@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import archivo from '@fontsource-variable/archivo/files/archivo-latin-wdth-normal.woff2?url'
-import vazirmatn from '@fontsource-variable/vazirmatn/files/vazirmatn-arabic-wght-normal.woff2?url'
+import archivo from '~/assets/fonts/archivo-display.woff2?url'
+import vazirmatn from '~/assets/fonts/vazirmatn-text.woff2?url'
 
 // Preload only the display face the first screen needs (it decides LCP); other subsets load on demand.
 const { locale } = useLocale()
