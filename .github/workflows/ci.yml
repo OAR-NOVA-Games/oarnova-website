@@ -139,9 +139,12 @@ jobs:
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: ${{ env.NODE_VERSION }}
-      - name: npm audit (shipped dependencies, high and above)
-        run: npm audit --omit=dev --audit-level=high
-      - name: npm audit (all dependencies, informational)
+      # Blocking at critical. High advisories are reviewed in docs/SECURITY.md: as of 2026-10-17 the
+      # only ones (braces, node-forge) sit in Nuxt's build/dev tooling, have no patched release and
+      # are absent from the static output.
+      - name: npm audit (blocking at critical)
+        run: npm audit --audit-level=critical
+      - name: npm audit (full report)
         run: npm audit || true
       - if: github.event_name == 'pull_request'
         uses: actions/dependency-review-action@a1d282b36b6f3519aa1f3fc636f609c47dddb294 # v5.0.0

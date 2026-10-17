@@ -21,10 +21,30 @@
   CDN's error page instead of the site's 404 page (status remains 404).
 - **Persian line breaking** of very large display type is tuned for the tested widths (390/820/1440);
   unusual widths may produce less balanced line breaks.
-- **Font preloading** is not used (Fontsource splits by unicode-range; preloading all subsets would
-  waste bytes). First paint may show the system fallback briefly (`font-display: swap`).
-- **Lighthouse** is measured manually (see the PR report); it is not a CI gate because results on shared
-  runners are noisy.
+- **Fonts**: only the display face of the page language is preloaded (Archivo latin for EN, Vazirmatn
+  arabic for FA); other subsets load on demand with `font-display: swap`.
+- **Mobile Lighthouse performance below 90 on some pages** (exception, measured 2026-10-17, Lighthouse
+  12.8.2, default mobile emulation = simulated slow 4G + 4× CPU, served by Caddy 2.11.7 with
+  compression on localhost):
+
+  | Page                 | Mobile perf | LCP    | Desktop perf |
+  | -------------------- | ----------- | ------ | ------------ |
+  | `/`                  | 87          | 3.65 s | 100          |
+  | `/fa/`               | 85          | 3.77 s | 99           |
+  | `/games/`            | 90          | 3.46 s | 100          |
+  | `/games/chista/`     | 83          | 4.38 s | 99           |
+  | `/fa/games/yarizan/` | 87          | 3.62 s | 99           |
+  | `/about/`            | 94          | 2.85 s | 100          |
+  | `/fa/contact/`       | 92          | 2.86 s | 100          |
+
+  Accessibility, Best Practices and SEO are 100 on all 14 runs; CLS ≤ 0.023; TBT ≤ 27 ms.
+  The LCP element is the display headline (or the Chista art), and its render waits for the 90 KB
+  variable display font (two axes) under the simulated 1.6 Mbit/s link. Not hidden by animation on
+  phones. Remaining options, each an owner trade-off: subset the display font to the glyphs used
+  (~-50 %, adds a font build step), switch the display face to `font-display: optional` (first visit
+  may render the fallback face), or reduce hero type to a static instance. Lighthouse is not a CI gate
+  because shared-runner results are noisy.
+
 - **Screen-reader pass** (NVDA/VoiceOver, EN and FA) not yet performed.
 - `/__not-found__/_payload.json` is published (needed by the hydrating 404 page); harmless, `noindex`.
 - Studio logo favicon is thin line art and reads weakly at 16–48 px; a dedicated icon would need owner artwork.

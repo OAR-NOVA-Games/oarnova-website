@@ -2,13 +2,13 @@
 
 ## `ci.yml` (pull requests, pushes to `main`, manual)
 
-| Job        | Steps                                                                                                                                                                     |
-| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `quality`  | `npm ci` (lockfile) → lint (ESLint + Prettier) → typecheck → unit tests → asset manifest check                                                                            |
-| `build`    | generate → `check:dist` → artifact → **clean rebuild must produce a byte-identical archive** → upload `site` and `release-artifact`                                       |
-| `e2e`      | download `site` → Playwright Chromium → full E2E suite → review screenshots → upload report + screenshots                                                                 |
-| `caddy`    | run `caddy:2.11.7-alpine` (same digest as production, read-only, uid 10001) with `deploy/Caddyfile` → `scripts/smoke.sh`                                                  |
-| `security` | gitleaks (pinned release, checksum-verified, full history) → `npm audit --omit=dev --audit-level=high` (blocking) → full audit (informational) → dependency review on PRs |
+| Job        | Steps                                                                                                                                                                                                                             |
+| ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `quality`  | `npm ci` (lockfile) → lint (ESLint + Prettier) → typecheck → unit tests → asset manifest check                                                                                                                                    |
+| `build`    | generate → `check:dist` → artifact → **clean rebuild must produce a byte-identical archive** → upload `site` and `release-artifact`                                                                                               |
+| `e2e`      | download `site` → Playwright Chromium → full E2E suite → review screenshots → upload report + screenshots                                                                                                                         |
+| `caddy`    | run `caddy:2.11.7-alpine` (same digest as production, read-only, uid 10001) with `deploy/Caddyfile` → `scripts/smoke.sh`                                                                                                          |
+| `security` | gitleaks (pinned release, checksum-verified, full history) → `npm audit --audit-level=critical` (blocking; high findings reviewed in [SECURITY.md](SECURITY.md)) → full audit report → dependency review on PRs (blocks new high) |
 
 All third-party actions are pinned to commit SHAs. Workflow token is read-only.
 

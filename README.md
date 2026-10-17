@@ -56,7 +56,7 @@ Playwright downloads Chromium; where that is unavailable, use an installed brows
 [Architecture](docs/ARCHITECTURE.md) · [Design system](docs/DESIGN-SYSTEM.md) ·
 [Motion](docs/MOTION.md) · [Asset provenance](docs/ASSET-PROVENANCE.md) ·
 [Localization](docs/LOCALIZATION.md) · [SEO](docs/SEO.md) · [Accessibility](docs/ACCESSIBILITY.md) ·
-[Testing](docs/TESTING.md) · [CI/CD](docs/CI-CD.md) · [Infrastructure handoff](docs/INFRA-HANDOFF.md) ·
+[Testing](docs/TESTING.md) · [CI/CD](docs/CI-CD.md) · [Infrastructure handoff](docs/INFRA-HANDOFF.md) · [Security](docs/SECURITY.md) ·
 [Known limitations](docs/KNOWN-LIMITATIONS.md) · [Changelog](CHANGELOG.md)
 
 ## Rights
