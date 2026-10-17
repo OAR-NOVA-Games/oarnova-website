@@ -1,0 +1,67 @@
+# PROPOSED replacement for oarnova-infrastructure/apps/studio/Caddyfile.
+# Not deployed from this repository. See docs/INFRA-HANDOFF.md.
+#
+# Changes from the current studio Caddyfile:
+#  - real 404s: unknown paths return status 404 with /404.html or /fa/404.html
+#  - HTML cache rule also covers directory URLs ("/games/") served as index.html
+#  - /_nuxt/* content-hashed bundles cached for a year, immutable; the build manifest
+#    (/_nuxt/builds/*) and /version.json always revalidate; payloads, sitemap and robots 300 s
+# TLS, redirects and security headers stay in Traefik; this server only
+# listens on the private Docker network.
+{
+	admin off
+	auto_https off
+	persist_config off
+}
+
+:8080 {
+	header -Server
+
+	handle /healthz {
+		header Cache-Control "no-store"
+		respond "ok" 200
+	}
+
+	handle {
+		root * /srv
+		encode zstd gzip
+
+		@html path / */ *.html
+		header @html Cache-Control "public, max-age=300"
+
+		# Content-hashed bundles only. /_nuxt/builds/ is Nuxt's build manifest:
+		# latest.json is rewritten by every release under the same URL.
+		@hashed {
+			path /_nuxt/*
+			not path /_nuxt/builds/*
+		}
+		header @hashed Cache-Control "public, max-age=31536000, immutable"
+
+		# Release metadata the client polls or that identifies the release: always revalidate.
+		@meta path /_nuxt/builds/* /version.json
+		header @meta Cache-Control "no-cache"
+
+		# Per-page payloads, sitemap and robots change with each release, like HTML.
+		@data path */_payload.json /sitemap.xml /robots.txt
+		header @data Cache-Control "public, max-age=300"
+
+		# Media keep stable names but are not content-hashed: cached for a day, never immutable.
+		@assets {
+			path *.css *.js *.svg *.png *.jpg *.jpeg *.webp *.avif *.ico *.woff2 *.woff
+			not path /_nuxt/*
+		}
+		header @assets Cache-Control "public, max-age=86400"
+
+		file_server
+	}
+
+	handle_errors 404 {
+		header -Server
+		root * /srv
+		@fa path /fa /fa/*
+		rewrite @fa /fa/404.html
+		rewrite /404.html
+		header Cache-Control "public, max-age=60"
+		file_server
+	}
+}

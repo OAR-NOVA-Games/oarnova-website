@@ -1,0 +1,10 @@
+.nuxt
+.output
+node_modules
+package-lock.json
+public/media
+assets/asset-manifest.json
+test-results
+playwright-report
+artifacts
+scripts/.*.tmp.mjs

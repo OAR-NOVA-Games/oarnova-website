@@ -1,0 +1,69 @@
+name: Release artifact
+
+# Manual, owner-triggered. Builds the static site from a version tag on main, verifies it,
+# and attaches the immutable artifact to a draft GitHub Release. It never deploys:
+# promotion to the studio server happens through oarnova-infrastructure (docs/INFRA-HANDOFF.md).
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Existing version tag on main to release (e.g. v1.0.0)'
+        required: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-24.04
+    # Configure required reviewers on this environment so a second person approves the run.
+    environment: release
+    permissions:
+      contents: write
+    env:
+      TAG: ${{ inputs.tag }}
+    steps:
+      - name: Validate tag name
+        run: '[[ "$TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]] || { echo "tag must look like v1.2.3, got: $TAG"; exit 1; }'
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: refs/tags/${{ inputs.tag }}
+          fetch-depth: 0
+      - name: Tag is on main and matches package.json
+        run: |
+          git fetch -q origin main
+          commit=$(git rev-parse "refs/tags/$TAG^{commit}")
+          git merge-base --is-ancestor "$commit" origin/main || { echo "$TAG ($commit) is not on main"; exit 1; }
+          [ "v$(jq -r .version package.json)" = "$TAG" ] || { echo "package.json version does not match $TAG"; exit 1; }
+          [ "$(git rev-parse HEAD)" = "$commit" ]
+          echo "release commit $commit"
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - run: npm run lint && npm run typecheck && npm test && npm run check:assets
+      - run: npm run generate && npm run check:dist
+      - run: npx playwright install --with-deps chromium && npm run test:e2e
+      - run: npm run artifact
+      - name: Reproducibility (clean rebuild must match)
+        run: |
+          first=$(jq -r .archiveSha256 artifacts/*.json)
+          mkdir -p /tmp/first && mv artifacts/* /tmp/first/
+          rm -rf .output .nuxt
+          npm run generate && npm run artifact
+          second=$(jq -r .archiveSha256 artifacts/*.json)
+          echo "first=$first second=$second"
+          [ "$first" = "$second" ]
+      - name: Create draft release with the artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          sha=$(jq -r .archiveSha256 artifacts/*.json)
+          gh release create "$TAG" artifacts/* --draft --verify-tag \
+            --title "oarnova-website $TAG" \
+            --notes "Static site artifact built from $(git rev-parse HEAD). Archive SHA-256: $sha. Per-file checksums in the .SHA256SUMS file. Not deployed."
