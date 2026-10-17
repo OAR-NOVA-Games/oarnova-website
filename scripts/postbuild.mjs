@@ -11,12 +11,47 @@ import { siteRoutes, siteUrl } from './routes.mjs'
 
 const out = '.output/public'
 
-async function* htmlFiles(dir) {
+async function* files(dir, test) {
   for (const e of await readdir(dir, { withFileTypes: true })) {
     const p = join(dir, e.name)
-    if (e.isDirectory()) yield* htmlFiles(p)
-    else if (e.name.endsWith('.html')) yield p
+    if (e.isDirectory()) yield* files(p, test)
+    else if (test(e.name)) yield p
   }
+}
+const htmlFiles = (dir) => files(dir, (n) => n.endsWith('.html'))
+
+const git = (cmd) => {
+  try {
+    return execSync(`git ${cmd}`, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim()
+  } catch {
+    return 'unknown'
+  }
+}
+
+// 0. Reproducibility: Nuxt stamps the wall clock into build metadata and every payload
+//    (`prerenderedAt`). Pin those to the commit time so one commit always builds the same bytes.
+const commitMs = Number(git('log -1 --format=%ct')) * 1000 || 0
+// Payloads are devalue arrays: [ {…, prerenderedAt: <index>}, …, <timestamp>, … ].
+// Only the referenced number is rewritten, in place, so the escaping Nuxt applied is untouched.
+const pinPayload = (raw) => {
+  const arr = JSON.parse(raw)
+  const i = arr?.[0]?.prerenderedAt
+  if (typeof i !== 'number' || typeof arr[i] !== 'number') return raw
+  return raw.replace(new RegExp(`([,\\[])${arr[i]}(?=[,\\]])`), `$1${commitMs}`)
+}
+for await (const f of files(join(out, '_nuxt/builds'), (n) => n.endsWith('.json'))) {
+  const meta = JSON.parse(await readFile(f, 'utf8'))
+  if ('timestamp' in meta) meta.timestamp = commitMs
+  await writeFile(f, JSON.stringify(meta))
+}
+for await (const f of files(out, (n) => n === '_payload.json')) await writeFile(f, pinPayload(await readFile(f, 'utf8')))
+for await (const f of htmlFiles(out)) {
+  const html = await readFile(f, 'utf8')
+  const next = html.replace(
+    /(<script type="application\/json"[^>]*id="__NUXT_DATA__"[^>]*>)([\s\S]*?)(<\/script>)/,
+    (_m, a, body, b) => a + pinPayload(body) + b,
+  )
+  if (next !== html) await writeFile(f, next)
 }
 
 // 1. 404 pages. Nuxt's own 200.html/404.html are SPA shells; replace them.
@@ -69,13 +104,6 @@ const sitemap = [
 ].join('\n')
 await writeFile(join(out, 'sitemap.xml'), sitemap)
 
-const git = (cmd) => {
-  try {
-    return execSync(`git ${cmd}`, { encoding: 'utf8' }).trim()
-  } catch {
-    return 'unknown'
-  }
-}
 const pkg = JSON.parse(await readFile('package.json', 'utf8'))
 await writeFile(
   join(out, 'version.json'),
