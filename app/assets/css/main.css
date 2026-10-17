@@ -261,11 +261,22 @@
   }
 }
 
-/* Motion gate (public/motion-gate.js): only hides intro elements while GSAP is
-   expected to animate them. Without JS, with reduced motion, or if GSAP has not
-   started within 3 s, nothing is hidden. */
-.motion:not(.motion-ready) [data-intro] {
-  opacity: 0;
+/* Intro gate. On wide screens with motion allowed, above-the-fold [data-intro] elements
+   start hidden so GSAP can choreograph their entrance (useMotion adds .motion-ready).
+   Fails open: if GSAP has not taken over within 3 s the animation reveals them anyway;
+   <noscript> cancels it; phones and reduced motion never hide anything (fast LCP). */
+@media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+  html:not(.motion-ready) [data-intro] {
+    animation: intro-failsafe 0.01s linear 3s both;
+  }
+}
+@keyframes intro-failsafe {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .page-enter-active,

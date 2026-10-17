@@ -15,7 +15,6 @@ const srcset = computed(() => (props.image.src2x ? `${props.image.src} ${props.i
     :height="image.height"
     :alt="alt"
     :loading="eager ? 'eager' : 'lazy'"
-    :fetchpriority="eager ? 'high' : undefined"
     decoding="async"
   />
 </template>

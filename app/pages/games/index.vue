@@ -6,8 +6,8 @@ const root = ref<HTMLElement | null>(null)
 
 useSeo(() => ({ title: t.value.seo.games.title, description: t.value.seo.games.description, path: '/games/' }))
 
-useMotion(root, ({ gsap }) => {
-  gsap.fromTo('.g-line > span', { yPercent: 108 }, { yPercent: 0, duration: 1.1, stagger: 0.1, ease: 'power4.out', delay: 0.1 })
+useMotion(root, ({ gsap, intro }) => {
+  if (intro) gsap.fromTo('.g-line > span', { yPercent: 108 }, { yPercent: 0, duration: 1.1, stagger: 0.1, ease: 'power4.out', delay: 0.1 })
   gsap.utils.toArray<HTMLElement>('.row').forEach((row) => {
     gsap.fromTo(
       row,

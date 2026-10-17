@@ -7,10 +7,15 @@ test.describe('GSAP motion', () => {
     await page.goto('/', { waitUntil: 'networkidle' })
     await page.waitForFunction(() => (window.__oarMotion?.contexts ?? 0) >= 5)
     await expect(page.locator('html')).toHaveClass(/motion-ready/)
-    // The hero lines were driven by GSAP (inline transform) and came to rest.
     const first = page.locator('#hero-title [data-line] > span').first()
-    await expect(first).toHaveAttribute('style', /transform/)
-    await expect.poll(() => first.evaluate((el) => getComputedStyle(el).transform)).toMatch(AT_REST)
+    if (test.info().project.name === 'mobile') {
+      // Phones skip the entrance (fast LCP): the hero is never touched by GSAP.
+      await expect(first).not.toHaveAttribute('style', /transform/)
+    } else {
+      // The hero lines were driven by GSAP (inline transform) and came to rest.
+      await expect(first).toHaveAttribute('style', /transform/)
+      await expect.poll(() => first.evaluate((el) => getComputedStyle(el).transform)).toMatch(AT_REST)
+    }
     await scrollThrough(page)
     await page.waitForTimeout(2200)
     for (const sel of ['#dooma-title > span', '#chista-title > span', '#yarizan-title > span']) {
@@ -49,6 +54,13 @@ test.describe('GSAP motion', () => {
   })
 })
 
+test('phones paint the hero without waiting for JavaScript', async ({ page }, info) => {
+  test.skip(info.project.name !== 'mobile')
+  await page.route(/\/_nuxt\/.*\.js(\?.*)?$/, (route) => route.abort())
+  await page.goto('/', { waitUntil: 'domcontentloaded' })
+  expect(await hiddenIntro(page)).toBe(0)
+})
+
 test.describe('reduced motion', () => {
   test.use({ reducedMotion: 'reduce' })
 
@@ -56,7 +68,6 @@ test.describe('reduced motion', () => {
     await page.goto('/', { waitUntil: 'networkidle' })
     await page.waitForTimeout(500)
     expect(await page.evaluate(() => window.__oarMotion)).toBeUndefined()
-    await expect(page.locator('html')).not.toHaveClass(/(^|\s)motion(\s|$)/)
     expect(await hiddenIntro(page)).toBe(0)
     await expect(page.locator('#hero-title')).toBeVisible()
   })
@@ -78,8 +89,9 @@ test.describe('motion gate fallback', () => {
   test('reveals content when the app bundle never loads', async ({ page }) => {
     await page.route(/\/_nuxt\/.*\.js(\?.*)?$/, (route) => route.abort())
     await page.goto('/')
+    // Wide screens hold the intro for GSAP; without it the 3 s failsafe still reveals everything.
+    if (test.info().project.name !== 'mobile') expect(await hiddenIntro(page)).toBeGreaterThan(0)
     await page.waitForTimeout(3400)
-    await expect(page.locator('html')).not.toHaveClass(/(^|\s)motion(\s|$)/)
     expect(await hiddenIntro(page)).toBe(0)
   })
 })

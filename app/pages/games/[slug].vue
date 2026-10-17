@@ -30,11 +30,12 @@ useSeo(() => ({
   },
 }))
 
-useMotion(root, ({ gsap, compact }) => {
+useMotion(root, ({ gsap, compact, intro }) => {
   const tl = gsap.timeline({ defaults: { ease: 'power4.out' } })
-  tl.fromTo('.h-line > span', { yPercent: 110 }, { yPercent: 0, duration: 1.15, stagger: 0.1 }, 0.1)
-    .fromTo('.art', { clipPath: 'inset(100% 0 0 0)' }, { clipPath: 'inset(0% 0 0 0)', duration: 1.3, ease: 'power3.inOut' }, 0)
-    .fromTo('[data-fade]', { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.8, stagger: 0.08, ease: 'power2.out' }, 0.55)
+  if (intro)
+    tl.fromTo('.h-line > span', { yPercent: 110 }, { yPercent: 0, duration: 1.15, stagger: 0.1 }, 0.1)
+      .fromTo('.art', { clipPath: 'inset(100% 0 0 0)' }, { clipPath: 'inset(0% 0 0 0)', duration: 1.3, ease: 'power3.inOut' }, 0)
+      .fromTo('[data-fade]', { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.8, stagger: 0.08, ease: 'power2.out' }, 0.55)
   if (!compact) {
     gsap.to('.art-img', { yPercent: 8, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 0.6 } })
   }
@@ -90,7 +91,7 @@ useMotion(root, ({ gsap, compact }) => {
           <picture v-else-if="game.slug === 'chista'">
             <source
               media="(max-width: 767px)"
-              srcset="/media/chista/night-portrait-540.webp 540w, /media/chista/night-portrait-1080.webp 1080w"
+              srcset="/media/chista/night-portrait-540.webp 540w, /media/chista/night-portrait-720.webp 720w"
               sizes="100vw"
               width="540"
               height="960"

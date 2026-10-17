@@ -15,13 +15,14 @@ which is CSS and stops under reduced motion).
 - Below 768 px (`compact`) scrubbed parallax is skipped and offsets are reduced.
 - After `document.fonts.ready`, `ScrollTrigger.refresh()` recomputes positions once.
 
-## No-JS and failure fallback
+## No-JS, phones and failure fallback
 
-`public/motion-gate.js` (external, CSP-safe) adds `html.motion` only when motion is expected. CSS hides
-`[data-intro]` elements only while `html.motion` is set and `html.motion-ready` is not. If GSAP has not
-reported ready within 3 s (blocked bundle, error, slow device) the gate removes `motion` and everything
-shows. Without JavaScript nothing is ever hidden. Only above-the-fold intro elements use the gate;
-below-the-fold reveals are created by GSAP itself when it runs.
+Only above-the-fold intro elements carry `[data-intro]`. On screens ≥ 768 px with motion allowed, CSS
+(`main.css`) holds them at `opacity: 0` until `useMotion` adds `html.motion-ready` and GSAP takes over.
+A CSS animation with a 3 s delay reveals them anyway if GSAP never arrives (blocked bundle, error, slow
+device); `<noscript>` cancels the hold entirely. Phones and reduced-motion users never have anything held,
+so first paint and LCP do not wait for JavaScript; components skip their entrance tweens there
+(`intro === false`) and keep only scroll-driven reveals. No render-blocking script is involved.
 
 ## Choreography
 

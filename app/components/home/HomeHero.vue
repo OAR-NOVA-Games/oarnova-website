@@ -2,12 +2,13 @@
 const { t, link, num } = useLocale()
 const root = ref<HTMLElement | null>(null)
 
-useMotion(root, ({ gsap, compact }) => {
+useMotion(root, ({ gsap, compact, intro }) => {
   const tl = gsap.timeline({ defaults: { ease: 'power4.out' } })
-  tl.fromTo('[data-line] > span', { yPercent: 112 }, { yPercent: 0, duration: 1.25, stagger: 0.11 }, 0.1)
-    .fromTo('.orbit-ring', { strokeDashoffset: 1900 }, { strokeDashoffset: 0, duration: 2.2, ease: 'power2.inOut' }, 0)
-    .fromTo('.orbit-mark', { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 1.6, ease: 'expo.out' }, 0.5)
-    .fromTo('[data-fade]', { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.9, stagger: 0.09, ease: 'power2.out' }, 0.65)
+  if (intro)
+    tl.fromTo('[data-line] > span', { yPercent: 112 }, { yPercent: 0, duration: 1.25, stagger: 0.11 }, 0.1)
+      .fromTo('.orbit-ring', { strokeDashoffset: 1900 }, { strokeDashoffset: 0, duration: 2.2, ease: 'power2.inOut' }, 0)
+      .fromTo('.orbit-mark', { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 1.6, ease: 'expo.out' }, 0.5)
+      .fromTo('[data-fade]', { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.9, stagger: 0.09, ease: 'power2.out' }, 0.65)
 
   // One restrained scroll-linked gesture: the orbit turns away as the hero leaves.
   if (!compact) {

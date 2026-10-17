@@ -34,3 +34,6 @@ export const hiddenIntro = (page: Page) =>
   page.locator('[data-intro]').evaluateAll((els) => els.filter((e) => parseFloat(getComputedStyle(e).opacity) < 0.5).length)
 
 export const AT_REST = /^(none|matrix\(1, 0, 0, 1, 0, 0\))$/
+
+/** Waits until the Vue app has hydrated (GSAP readiness is set after mount). */
+export const hydrated = (page: Page) => page.waitForFunction(() => document.documentElement.classList.contains('motion-ready'))

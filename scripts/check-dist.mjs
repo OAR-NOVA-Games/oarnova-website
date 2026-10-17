@@ -16,7 +16,7 @@ const exists = async (p) => (await stat(p).catch(() => null))?.isFile() ?? false
 
 const pages = [...allRoutes.map((r) => [r, join(out, r, 'index.html')]), ['/404.html', join(out, '404.html')], ['/fa/404.html', join(out, 'fa/404.html')]]
 
-for (const f of ['sitemap.xml', 'robots.txt', 'version.json', 'motion-gate.js']) if (!(await exists(join(out, f)))) fail(`missing ${f}`)
+for (const f of ['sitemap.xml', 'robots.txt', 'version.json']) if (!(await exists(join(out, f)))) fail(`missing ${f}`)
 
 for (const [route, file] of pages) {
   if (!(await exists(file))) {

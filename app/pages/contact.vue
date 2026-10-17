@@ -6,8 +6,9 @@ const root = ref<HTMLElement | null>(null)
 
 useSeo(() => ({ title: t.value.seo.contact.title, description: t.value.seo.contact.description, path: '/contact/' }))
 
-useMotion(root, ({ gsap }) => {
-  gsap.fromTo('.channel', { clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)', duration: 1.1, stagger: 0.15, ease: 'power3.inOut', delay: 0.4 })
+useMotion(root, ({ gsap, intro }) => {
+  if (intro)
+    gsap.fromTo('.channel', { clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)', duration: 1.1, stagger: 0.15, ease: 'power3.inOut', delay: 0.4 })
 })
 
 const channels = computed(() => [

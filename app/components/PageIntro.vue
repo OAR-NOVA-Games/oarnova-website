@@ -3,7 +3,8 @@
 defineProps<{ label: string; lines: string[]; lede?: string }>()
 const root = ref<HTMLElement | null>(null)
 
-useMotion(root, ({ gsap }) => {
+useMotion(root, ({ gsap, intro }) => {
+  if (!intro) return
   gsap
     .timeline({ defaults: { ease: 'power4.out' } })
     .fromTo('.p-line > span', { yPercent: 110 }, { yPercent: 0, duration: 1.15, stagger: 0.1 }, 0.1)

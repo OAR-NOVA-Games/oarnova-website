@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test'
-import { enRoutes, watchErrors } from './helpers'
+import { enRoutes, hydrated, watchErrors } from './helpers'
 
 test.describe('language switch', () => {
   for (const route of enRoutes) {
@@ -63,6 +63,7 @@ test.describe('mobile menu', () => {
   test('opens, traps focus, closes on Escape and returns focus', async ({ page }) => {
     const errors = watchErrors(page)
     await page.goto('/')
+    await hydrated(page)
     const button = page.getByRole('button', { name: 'Open menu' })
     await expect(button).toHaveAttribute('aria-expanded', 'false')
     await button.click()
@@ -81,6 +82,7 @@ test.describe('mobile menu', () => {
 
   test('navigates and closes after choosing a link', async ({ page }) => {
     await page.goto('/fa/')
+    await hydrated(page)
     await page.getByRole('button', { name: 'باز کردن منو' }).click()
     await page
       .getByRole('navigation', { name: 'منو' })

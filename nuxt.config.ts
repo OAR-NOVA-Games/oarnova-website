@@ -47,8 +47,8 @@ export default defineNuxtConfig({
         { rel: 'icon', type: 'image/png', sizes: '48x48', href: '/media/icons/favicon-48.png' },
         { rel: 'apple-touch-icon', href: '/media/icons/apple-touch-icon.png' },
       ],
-      // External (CSP script-src 'self') motion gate; see public/motion-gate.js.
-      script: [{ src: '/motion-gate.js', tagPosition: 'head' }],
+      // Without JavaScript the intro failsafe is cancelled outright (see main.css).
+      noscript: [{ tagPosition: 'head', innerHTML: '<style>[data-intro]{animation:none!important}</style>' }],
     },
     pageTransition: { name: 'page', mode: 'out-in' },
   },

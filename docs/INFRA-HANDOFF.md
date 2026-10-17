@@ -26,7 +26,7 @@ requires a byte-identical archive.
 
 Contents: `index.html` + `<route>/index.html` for 14 routes (EN at `/`, FA under `/fa/`),
 `404.html`, `fa/404.html`, `_nuxt/*` (content-hashed JS/CSS/fonts), `media/*`,
-`sitemap.xml`, `robots.txt`, `version.json`, `motion-gate.js`, `_payload.json` files.
+`sitemap.xml`, `robots.txt`, `version.json`, `_payload.json` files.
 LF line endings only (checked), no symlinks, no executables.
 
 ## 2. Compatibility with the current stack (verified)

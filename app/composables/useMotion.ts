@@ -8,6 +8,12 @@ export interface MotionKit {
   root: HTMLElement
   /** True below 768px: compositions animate less on phones. */
   compact: boolean
+  /**
+   * True when the CSS intro gate (main.css) is holding [data-intro] elements for an entrance,
+   * or on later client-side navigations. False on phones and once the 3 s failsafe has
+   * revealed content: it then stays where it is and must not be animated in.
+   */
+  intro: boolean
 }
 
 declare global {
@@ -29,16 +35,14 @@ export function useMotion(root: Ref<HTMLElement | null>, setup: (kit: MotionKit)
 
   onMounted(async () => {
     const html = document.documentElement
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      html.classList.remove('motion')
-      return
-    }
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     const [{ gsap }, { ScrollTrigger }] = await Promise.all([import('gsap'), import('gsap/ScrollTrigger')])
     if (!alive || !root.value) return
     gsap.registerPlugin(ScrollTrigger)
     const el = root.value
     const compact = window.matchMedia('(max-width: 767px)').matches
-    ctx = gsap.context(() => setup({ gsap, ScrollTrigger, root: el, compact }), el)
+    const intro = !compact && (html.classList.contains('motion-ready') || performance.now() < 2800)
+    ctx = gsap.context(() => setup({ gsap, ScrollTrigger, root: el, compact, intro }), el)
     html.classList.add('motion-ready')
     // Test hook (read-only): proves GSAP ran and that no trigger outlives its element.
     window.__oarMotion = {
