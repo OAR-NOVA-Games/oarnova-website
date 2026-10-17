@@ -51,7 +51,7 @@ onBeforeUnmount(() => {
 <template>
   <header class="header" :class="{ open }">
     <NuxtLink :to="link('/')" class="identity">
-      <img src="/media/studio/oar-nova-logo-512.webp" width="512" height="512" alt="" class="mark" />
+      <img src="/media/studio/oar-nova-logo-192.webp" width="192" height="192" alt="" class="mark" />
       <span class="word" lang="en">
         <b>OAR NOVA</b>
         <span>Games Studio</span>
@@ -192,8 +192,10 @@ html[dir='rtl'] .nav-link[aria-current='page']::after {
     border-color 0.3s,
     color 0.3s;
 }
+/* English pages show «فارسی» in a system Persian face: loading the 46 KB Vazirmatn subset
+   for five letters would compete with the hero font on every English first visit. */
 .lang[lang='fa'] {
-  font-family: var(--font-fa);
+  font-family: Tahoma, 'Segoe UI', system-ui, sans-serif;
 }
 .lang[lang='en'] {
   font-family: var(--font-sans);
