@@ -127,6 +127,19 @@ onBeforeUnmount(() => {
   font-weight: 800;
   font-size: 16px;
   letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+.word span {
+  white-space: nowrap;
+}
+/* Smallest phones: keep the wordmark on one line; the mark carries the rest. */
+@media (max-width: 359px) {
+  .word span {
+    display: none;
+  }
+  .word b {
+    font-size: 14px;
+  }
 }
 .word span {
   margin-top: 5px;
