@@ -236,6 +236,18 @@ html[lang='fa'] .tagline {
   color: var(--color-mute);
 }
 
+/* Very wide screens: let the orbit come in from the edge and the title keep growing,
+   so the composition does not split into two islands. */
+@media (min-width: 1920px) {
+  .title {
+    font-size: clamp(236px, 12.5vw, 320px);
+  }
+  .orbit {
+    width: min(44vw, 1150px);
+    inset-inline-end: 3vw;
+    margin-top: max(-22vw, -575px);
+  }
+}
 @media (max-width: 1023px) {
   .orbit-mark {
     display: none;
