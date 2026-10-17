@@ -1,0 +1,15 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      nuxt:
+        patterns: ['nuxt', '@nuxt/*', 'vue', 'vue-router']
+      testing:
+        patterns: ['@playwright/test', '@axe-core/*', 'vitest']
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
