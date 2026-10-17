@@ -13,6 +13,12 @@ for (const route of [...allRoutes, '/missing-page/', '/fa/missing-page/']) {
       await page.waitForTimeout(120)
     }
     await page.waitForTimeout(1500)
+    // Full-page captures render areas the viewport never reached; make sure every image is decoded.
+    await page.evaluate(async () => {
+      const imgs = [...document.images]
+      for (const i of imgs) i.loading = 'eager'
+      await Promise.all(imgs.map((i) => i.decode().catch(() => null)))
+    })
     await page.evaluate(() => {
       // Scrubbed effects follow scroll position; pin them at rest for a full-page capture.
       window.scrollTo(0, 0)
