@@ -34,7 +34,7 @@ useMotion(root, ({ gsap }) => {
         <span class="w-line">{{ t.home.work[0] }}</span>
         <span class="w-line">
           <span class="hollow">{{ t.home.work[1] }}</span
-          ><span v-if="t.home.work[2]" class="after">{{ t.home.work[2] }}</span>
+          ><template v-if="t.home.work[2]">{{ ' ' + t.home.work[2] }}</template>
         </span>
         <span class="w-line"
           ><em class="accent">{{ t.home.work[3] }}</em></span
@@ -80,9 +80,6 @@ html[lang='en'] .hollow {
 }
 html[lang='fa'] .hollow {
   color: var(--color-moss);
-}
-.after {
-  margin-inline-start: 0.22em;
 }
 .title em {
   font-size: 0.86em;

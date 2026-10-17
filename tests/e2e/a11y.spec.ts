@@ -15,3 +15,10 @@ test.describe('accessibility (axe, WCAG 2.1 A/AA)', () => {
     })
   }
 })
+
+test('split display headings keep word boundaries for assistive technology', async ({ page }, info) => {
+  test.skip(info.project.name !== 'desktop')
+  await page.goto('/')
+  await expect(page.getByRole('heading', { level: 2, name: 'Not one way to play.' })).toBeVisible()
+  await expect(page.getByRole('heading', { level: 1, name: 'Worlds in motion.' })).toBeVisible()
+})
