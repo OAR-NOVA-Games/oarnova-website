@@ -35,6 +35,14 @@ test.describe('static hosting behaviour', () => {
     const sitemap = await (await request.get('/sitemap.xml')).text()
     expect(sitemap.match(/<loc>/g)).toHaveLength(14)
     expect(sitemap).toContain('hreflang="fa" href="https://oarnova.games/fa/games/yarizan/"')
+    expect(sitemap.match(/<lastmod>\d{4}-\d{2}-\d{2}<\/lastmod>/g)).toHaveLength(14)
+  })
+
+  test('home page declares the organization and the bilingual website', async ({ page }) => {
+    await page.goto('/')
+    const ld = JSON.parse((await page.locator('script[type="application/ld+json"]').textContent())!)
+    expect(ld['@graph'].map((n: { '@type': string }) => n['@type'])).toEqual(['Organization', 'WebSite'])
+    expect(ld['@graph'][1].inLanguage).toEqual(['en', 'fa'])
   })
 
   test('social metadata is page specific', async ({ page }) => {

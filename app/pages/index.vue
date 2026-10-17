@@ -9,11 +9,25 @@ useSeo(() => ({
   path: '/',
   jsonLd: {
     '@context': 'https://schema.org',
-    '@type': 'Organization',
-    name: 'OAR NOVA Games Studio',
-    url: siteUrl,
-    logo: `${siteUrl}/media/studio/oar-nova-logo-1024.webp`,
-    email: contact.info,
+    '@graph': [
+      {
+        '@type': 'Organization',
+        '@id': `${siteUrl}/#organization`,
+        name: 'OAR NOVA Games Studio',
+        alternateName: 'استودیو بازی‌سازی اوآر نوا',
+        url: siteUrl,
+        logo: `${siteUrl}/media/studio/oar-nova-logo-1024.webp`,
+        email: contact.info,
+      },
+      {
+        '@type': 'WebSite',
+        '@id': `${siteUrl}/#website`,
+        name: 'OAR NOVA Games Studio',
+        url: `${siteUrl}/`,
+        inLanguage: ['en', 'fa'],
+        publisher: { '@id': `${siteUrl}/#organization` },
+      },
+    ],
   },
 }))
 </script>

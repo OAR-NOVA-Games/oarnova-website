@@ -86,6 +86,8 @@ for await (const file of htmlFiles(out)) {
 }
 
 // 3. sitemap.xml + version.json
+// lastmod is the release commit date: deterministic, and honest for a site released as a whole.
+const lastmod = git('log -1 --format=%cs')
 const url = (p) => `${siteUrl}${p}`
 const sitemap = [
   '<?xml version="1.0" encoding="UTF-8"?>',
@@ -93,7 +95,7 @@ const sitemap = [
   ...siteRoutes.flatMap((p) =>
     [p, `/fa${p}`].map(
       (loc) =>
-        `  <url><loc>${url(loc)}</loc>` +
+        `  <url><loc>${url(loc)}</loc><lastmod>${lastmod}</lastmod>` +
         `<xhtml:link rel="alternate" hreflang="en" href="${url(p)}"/>` +
         `<xhtml:link rel="alternate" hreflang="fa" href="${url(`/fa${p}`)}"/>` +
         `<xhtml:link rel="alternate" hreflang="x-default" href="${url(p)}"/></url>`,
