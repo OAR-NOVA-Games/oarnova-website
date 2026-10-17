@@ -29,6 +29,14 @@ const types = {
   '.svg': 'image/svg+xml',
 }
 
+// Same policy as deploy/Caddyfile.
+function cacheControl(path, ext) {
+  if (path.startsWith('/_nuxt/builds/') || path === '/version.json') return 'no-cache'
+  if (path.startsWith('/_nuxt/')) return 'public, max-age=31536000, immutable'
+  if (ext === '.html' || path.endsWith('/_payload.json') || path === '/sitemap.xml' || path === '/robots.txt') return 'public, max-age=300'
+  return 'public, max-age=86400'
+}
+
 const isFile = async (p) => (await stat(p).catch(() => null))?.isFile() ?? false
 
 createServer(async (req, res) => {
@@ -42,7 +50,7 @@ createServer(async (req, res) => {
       'Content-Type': types[ext] ?? 'application/octet-stream',
       'Content-Security-Policy': CSP,
       'X-Content-Type-Options': 'nosniff',
-      'Cache-Control': path.startsWith('/_nuxt/') ? 'public, max-age=31536000, immutable' : ext === '.html' ? 'public, max-age=300' : 'public, max-age=86400',
+      'Cache-Control': cacheControl(path, ext),
     })
     res.end(req.method === 'HEAD' ? undefined : await readFile(file))
   }

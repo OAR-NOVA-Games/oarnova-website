@@ -53,5 +53,8 @@ test.describe('static hosting behaviour', () => {
     expect(asset.headers()['cache-control']).toContain('immutable')
     const html = await request.get('/')
     expect(html.headers()['cache-control']).toBe('public, max-age=300')
+    // Mutable files under /_nuxt/ and release metadata must never be cached as immutable.
+    for (const p of ['/_nuxt/builds/latest.json', '/version.json']) expect((await request.get(p)).headers()['cache-control'], p).toBe('no-cache')
+    for (const p of ['/_payload.json', '/sitemap.xml', '/robots.txt']) expect((await request.get(p)).headers()['cache-control'], p).toBe('public, max-age=300')
   })
 })

@@ -23,6 +23,12 @@ case "$redir" in 30[178]\ */games/dooma/) echo "PASS trailing-slash redirect ($r
 asset=$(c "$base/" | grep -o '/_nuxt/[^"]*\.js' | head -1)
 c -D - -o /dev/null "$base$asset" | grep -qi '^cache-control: public, max-age=31536000, immutable' && echo "PASS immutable $asset" || { echo "FAIL immutable $asset"; fail=1; }
 c -D - -o /dev/null "$base/games/" | grep -qi '^cache-control: public, max-age=300' && echo "PASS html cache /games/" || { echo "FAIL html cache /games/"; fail=1; }
+for p in /_nuxt/builds/latest.json /version.json; do
+  c -D - -o /dev/null "$base$p" | grep -qi '^cache-control: no-cache' && echo "PASS revalidated $p" || { echo "FAIL revalidated $p"; fail=1; }
+done
+for p in /_payload.json /fa/games/_payload.json /sitemap.xml; do
+  c -D - -o /dev/null "$base$p" | grep -qi '^cache-control: public, max-age=300' && echo "PASS short cache $p" || { echo "FAIL short cache $p"; fail=1; }
+done
 chk 200 "$(c -o /dev/null -w '%{http_code}' "$base/sitemap.xml")" "sitemap"
 chk 200 "$(c -o /dev/null -w '%{http_code}' "$base/robots.txt")" "robots"
 c "$base/version.json" | grep -q '"commit"' && echo "PASS version.json" || { echo "FAIL version.json"; fail=1; }
