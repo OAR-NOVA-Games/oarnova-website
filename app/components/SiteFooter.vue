@@ -9,7 +9,7 @@ const year = 2026
   <footer class="footer wrap">
     <div class="top">
       <div class="sign">
-        <img src="/media/studio/oar-nova-logo-512.webp" width="512" height="512" alt="OAR NOVA Games" loading="lazy" class="logo" />
+        <img src="/media/studio/oar-nova-logo-192.webp" width="192" height="192" alt="OAR NOVA Games" loading="lazy" class="logo" />
         <p>{{ t.footer.line }}</p>
       </div>
       <nav class="col" :aria-label="t.footer.games">

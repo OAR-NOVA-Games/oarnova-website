@@ -35,6 +35,16 @@ const jobs = [
     status: 'approved',
   },
   {
+    out: 'studio/oar-nova-logo-192.webp',
+    src: 'chista',
+    path: 'docs/brand/studio/oar-nova-games-logo-1024.png',
+    op: 'webp',
+    width: 192,
+    lossless: true,
+    purpose: 'Header and footer studio mark (shown at 40-92 px)',
+    status: 'approved',
+  },
+  {
     out: 'studio/oar-nova-logo-1024.webp',
     src: 'chista',
     path: 'apps/web/public/assets/chista/studio/oar-nova-games-logo-1024w.webp',

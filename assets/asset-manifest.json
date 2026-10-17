@@ -16,6 +16,20 @@
       "status": "approved"
     },
     {
+      "file": "public/media/studio/oar-nova-logo-192.webp",
+      "sha256": "726a69f3cd9febb8daebbe18a2adfe20f0f8deb1a9d6ab318c1e306ec35254f5",
+      "bytes": 11920,
+      "width": 192,
+      "height": 192,
+      "sourceRepo": "OAR-NOVA-Games/Chista",
+      "sourceRevision": "418bf4d4ffdb58773f84626f82828d2e8cdc752e",
+      "sourcePath": "docs/brand/studio/oar-nova-games-logo-1024.png",
+      "sourceSha256": "7ded70bab5d9bc9ff22f3aa953d7562b96a48152e52f4de5932a516df5aab2c0",
+      "transform": "resize width 192, webp lossless",
+      "purpose": "Header and footer studio mark (shown at 40-92 px)",
+      "status": "approved"
+    },
+    {
       "file": "public/media/studio/oar-nova-logo-1024.webp",
       "sha256": "5f9dbae60c9822c9c7a2ddf3e5770f7cd6a17197d820de16c27be391362ddb63",
       "bytes": 161536,

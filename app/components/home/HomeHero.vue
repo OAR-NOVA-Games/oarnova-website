@@ -42,7 +42,7 @@ useMotion(root, ({ gsap, compact, intro }) => {
         <circle cx="210" cy="582" r="4.5" fill="var(--color-gold)" />
         <circle cx="662" cy="434" r="6" stroke="var(--color-cream)" stroke-opacity=".6" />
       </svg>
-      <img class="orbit-mark" data-intro src="/media/studio/oar-nova-logo-512.webp" width="512" height="512" alt="" fetchpriority="high" />
+      <img class="orbit-mark" data-intro src="/media/studio/oar-nova-logo-512.webp" width="512" height="512" alt="" loading="lazy" />
     </div>
 
     <div class="hero-copy wrap">
