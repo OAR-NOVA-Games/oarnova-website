@@ -1,6 +1,11 @@
 # Changelog
 
-## 1.0.0 — unreleased
+## 1.0.1 — unreleased
+
+- Home, YariZan chapter: on phones the logo is centred on the book again. It was pushed toward the grade tabs (right in English, left in Persian) and overlapped them.
+- E2E regression test for the logo position at eight widths in both languages.
+
+## 1.0.0 — 2026-10-18
 
 First implementation of the studio website (Worlds in Motion).
 

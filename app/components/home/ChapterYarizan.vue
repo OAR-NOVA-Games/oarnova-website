@@ -203,13 +203,14 @@ html[lang='fa'] .tagline {
     width: 62%;
     margin: 48px auto 0;
   }
+  /* Centred on the book: the book is 62% wide and 62% / 0.74 tall, the logo 40% wide
+     and 40% * 600 / 512 tall (percent margins resolve against the column width). */
   .y-logo {
     order: 3;
+    align-self: center;
     width: 40%;
-    margin-top: -62%;
-    margin-inline-start: 28%;
-    margin-bottom: 26%;
-    justify-self: auto;
+    margin-top: calc(-62% / 0.74 + (62% / 0.74 - 40% * 600 / 512) / 2);
+    margin-bottom: calc(26% + 62% / 0.74 - 62% - (62% / 0.74 - 40% * 600 / 512) / 2);
   }
   .y-tab {
     width: 32px;

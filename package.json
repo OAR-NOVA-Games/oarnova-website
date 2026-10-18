@@ -1,6 +1,6 @@
 {
   "name": "oarnova-website",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "type": "module",
   "description": "Official website of OAR NOVA GAMES STUDIO (static, bilingual EN/FA).",
