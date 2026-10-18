@@ -4,6 +4,12 @@ updates:
     directory: /
     schedule:
       interval: weekly
+    ignore:
+      # Major upgrades (for example TypeScript 7, or @types/node beyond the
+      # Node 24 runtime in package.json engines) are planned work, not weekly
+      # version updates. Security updates and alerts are configured separately.
+      - dependency-name: '*'
+        update-types: ['version-update:semver-major']
     groups:
       nuxt:
         patterns: ['nuxt', '@nuxt/*', 'vue', 'vue-router']
