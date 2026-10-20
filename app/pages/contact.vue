@@ -12,8 +12,9 @@ useMotion(root, ({ gsap, intro }) => {
 })
 
 const channels = computed(() => [
-  { key: 'info', title: t.value.contact.general, body: t.value.contact.generalBody, email: contact.info },
-  { key: 'support', title: t.value.contact.support, body: t.value.contact.supportBody, email: contact.support },
+  { key: 'info', title: t.value.contact.general, body: t.value.contact.generalBody, href: `mailto:${contact.info}`, text: contact.info },
+  { key: 'support', title: t.value.contact.support, body: t.value.contact.supportBody, href: `mailto:${contact.support}`, text: contact.support },
+  { key: 'phone', title: t.value.contact.phone, body: t.value.contact.phoneBody, href: `tel:${contact.phone}`, text: num(contact.phoneDisplay) },
 ])
 </script>
 
@@ -23,7 +24,7 @@ const channels = computed(() => [
     <section class="channels wrap">
       <div v-for="(c, i) in channels" :key="c.key" class="channel" data-intro>
         <h2 class="meta">{{ num(`0${i + 1}`) }} · {{ c.title }}</h2>
-        <a :href="`mailto:${c.email}`" class="mail" dir="ltr">{{ c.email }}<span aria-hidden="true">↗</span></a>
+        <a :href="c.href" class="mail" dir="ltr">{{ c.text }}<span aria-hidden="true">↗</span></a>
         <p class="desc">{{ c.body }}</p>
       </div>
       <p class="privacy meta">{{ t.contact.privacy }}</p>

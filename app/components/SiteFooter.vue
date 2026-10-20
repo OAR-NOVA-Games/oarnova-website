@@ -25,6 +25,7 @@ const year = 2026
         <h2 class="meta">{{ t.footer.write }}</h2>
         <a :href="`mailto:${contact.info}`" dir="ltr">{{ contact.info }}</a>
         <a :href="`mailto:${contact.support}`" dir="ltr">{{ contact.support }}</a>
+        <a :href="`tel:${contact.phone}`" dir="ltr">{{ num(contact.phoneDisplay) }}</a>
       </div>
     </div>
     <div class="bottom meta">
