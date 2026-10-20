@@ -18,6 +18,7 @@ useSeo(() => ({
         url: siteUrl,
         logo: `${siteUrl}/media/studio/oar-nova-logo-1024.webp`,
         email: contact.info,
+        telephone: contact.phone,
       },
       {
         '@type': 'WebSite',

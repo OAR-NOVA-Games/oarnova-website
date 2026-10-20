@@ -35,7 +35,7 @@ const en = {
     line: 'Independent game studio.',
     games: 'Games',
     studio: 'Studio',
-    write: 'Write to us',
+    write: 'Get in touch',
     rights: 'OAR NOVA Games Studio',
     top: 'Back to top',
   },
@@ -161,12 +161,14 @@ const en = {
 
   contact: {
     label: 'Contact',
-    title: ['Write', 'to us.'],
-    intro: 'There is no form and no account to create. Choose the address that fits, and your email client will open.',
+    title: ['Talk', 'to us.'],
+    intro: 'There is no form and no account to create. Choose the address that fits and your email client will open, or call us.',
     general: 'General & collaboration',
     generalBody: 'Partnerships, publishing, press and everything else about the studio.',
     support: 'Player support',
     supportBody: 'Questions about one of our games.',
+    phone: 'Phone',
+    phoneBody: 'For a quick conversation with the studio.',
     privacy: 'We only use what you send to reply to you.',
   },
 
@@ -193,7 +195,7 @@ const en = {
     },
     contact: {
       title: 'Contact — OAR NOVA Games Studio',
-      description: 'Write to OAR NOVA Games Studio at info@oarnova.games or support@oarnova.games.',
+      description: 'Contact OAR NOVA Games Studio at info@oarnova.games, support@oarnova.games or 0936-964-2754.',
     },
     notFound: { title: 'Page not found — OAR NOVA Games Studio', description: 'This page does not exist.' },
     game: {
@@ -360,11 +362,13 @@ const fa: Copy = {
   contact: {
     label: 'تماس با ما',
     title: ['با ما', 'در تماس باشید.'],
-    intro: 'فرم یا ثبت‌نامی در کار نیست. نشانی مناسب را انتخاب کنید تا برنامهٔ ایمیلتان باز شود.',
+    intro: 'فرم یا ثبت‌نامی در کار نیست. نشانی مناسب را انتخاب کنید تا برنامهٔ ایمیلتان باز شود، یا با ما تماس بگیرید.',
     general: 'ارتباط عمومی و همکاری',
     generalBody: 'همکاری، نشر، رسانه و هر موضوع دیگری دربارهٔ استودیو.',
     support: 'پشتیبانی بازیکنان',
     supportBody: 'هر پرسشی دربارهٔ بازی‌هایمان.',
+    phone: 'تماس تلفنی',
+    phoneBody: 'برای گفت‌وگوی کوتاه با استودیو.',
     privacy: 'آنچه برایمان می‌فرستید فقط برای پاسخ دادن به خودتان به کار می‌رود.',
   },
 
@@ -391,7 +395,7 @@ const fa: Copy = {
     },
     contact: {
       title: 'تماس با ما — استودیو بازی‌سازی اوآر نوا',
-      description: 'برای تماس با استودیو بازی‌سازی اوآر نوا به info@oarnova.games یا support@oarnova.games ایمیل بزنید.',
+      description: 'برای تماس با استودیو بازی‌سازی اوآر نوا به info@oarnova.games یا support@oarnova.games ایمیل بزنید یا با ۰۹۳۶-۹۶۴-۲۷۵۴ تماس بگیرید.',
     },
     notFound: { title: 'صفحه پیدا نشد — استودیو بازی‌سازی اوآر نوا', description: 'این صفحه وجود ندارد.' },
     game: {

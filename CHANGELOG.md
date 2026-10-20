@@ -1,6 +1,12 @@
 # Changelog
 
-## 1.0.1 — unreleased
+## 1.0.2 — unreleased
+
+- Contact: studio phone number 0936-964-2754 as a `tel:` link on the contact page (third channel), in the footer and in the `Organization` structured data; Persian digits on Persian pages.
+- Contact copy mentions calling; footer column heading is now "Get in touch".
+- E2E checks for the phone link on both contact pages and in the footer.
+
+## 1.0.1 — tagged, not released
 
 - Home, YariZan chapter: on phones the logo is centred on the book again. It was pushed toward the grade tabs (right in English, left in Persian) and overlapped them.
 - E2E regression test for the logo position at eight widths in both languages.

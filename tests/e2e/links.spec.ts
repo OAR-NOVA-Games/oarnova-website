@@ -37,14 +37,18 @@ for (const route of ['/contact/', '/fa/contact/']) {
       await expect(link).toBeVisible()
       await expect(link).toContainText(email)
     }
+    const phone = page.locator('main').locator('a[href="tel:+989369642754"]')
+    await expect(phone).toBeVisible()
+    await expect(phone).toContainText(route.startsWith('/fa/') ? '۰۹۳۶-۹۶۴-۲۷۵۴' : '0936-964-2754')
     await expect(page.locator('form')).toHaveCount(0)
   })
 }
 
-test('footer carries both addresses', async ({ page }) => {
+test('footer carries both addresses and the phone number', async ({ page }) => {
   for (const route of ['/', '/games/chista/', '/fa/about/']) {
     await page.goto(route)
     await expect(page.locator('footer a[href="mailto:info@oarnova.games"]')).toHaveCount(1)
     await expect(page.locator('footer a[href="mailto:support@oarnova.games"]')).toHaveCount(1)
+    await expect(page.locator('footer a[href="tel:+989369642754"]')).toHaveCount(1)
   }
 })

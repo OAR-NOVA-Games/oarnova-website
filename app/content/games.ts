@@ -115,6 +115,9 @@ export const gameList: Game[] = gameSlugs.map((s) => games[s])
 export const contact = {
   info: 'info@oarnova.games',
   support: 'support@oarnova.games',
+  /** E.164 for tel: links and structured data; `phoneDisplay` is the local form shown on the page. */
+  phone: '+989369642754',
+  phoneDisplay: '0936-964-2754',
 } as const
 
 export const siteUrl = 'https://oarnova.games'

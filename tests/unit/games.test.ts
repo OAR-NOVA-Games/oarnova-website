@@ -33,7 +33,7 @@ describe('game manifest', () => {
   })
 
   it('publishes the official contact addresses', () => {
-    expect(contact).toEqual({ info: 'info@oarnova.games', support: 'support@oarnova.games' })
+    expect(contact).toEqual({ info: 'info@oarnova.games', support: 'support@oarnova.games', phone: '+989369642754', phoneDisplay: '0936-964-2754' })
     expect(siteUrl).toBe('https://oarnova.games')
   })
 
