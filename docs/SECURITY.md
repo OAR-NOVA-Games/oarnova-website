@@ -48,6 +48,10 @@ GHSA IDs (`.github/workflows/ci.yml`); review again when Dependabot reports a pa
 
 - Executable inline scripts: none (checked by `scripts/check-dist.mjs`); E2E runs under the production CSP.
 - Third-party requests: none; CSP `default-src 'self'` would block them and E2E fails on CSP errors.
+- One same-origin JSON request: the Chista page reads `/feeds/chista/promotions.json` after rendering (public CHISTA
+  campaigns, see [INFRA-HANDOFF.md](INFRA-HANDOFF.md#6-chista-promotions-feed-owner-go-required-not-part-of-the-cut-over)).
+  Credentials are omitted, there are no query parameters, the response is treated as untrusted text (unknown fields
+  dropped, lengths capped, codes pattern-checked, links never taken from the feed) and rendered without `v-html`.
 - Cookies / localStorage: none. The only storage access in shipped code is Nuxt's internal
   `sessionStorage['nuxt:reload']` guard, used only when a deployed chunk is missing after an update.
 - External links: only the three permanent game sites (`target=_blank rel=noopener`) and two `mailto:` links.

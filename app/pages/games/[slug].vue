@@ -144,6 +144,8 @@ useMotion(root, ({ gsap, compact, intro }) => {
       </dl>
     </section>
 
+    <ChistaPromotions v-if="game.slug === 'chista'" />
+
     <section class="story wrap">
       <div class="story-text">
         <p v-for="(p, i) in story.story" :key="i" class="reveal" :class="{ first: i === 0 }">{{ p }}</p>

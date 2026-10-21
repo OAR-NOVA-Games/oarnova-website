@@ -2,6 +2,11 @@
 
 ## 1.0.2 — unreleased
 
+- Chista page: «Gifts and offers» section with public CHISTA campaigns read at runtime from the same-origin feed
+  `/feeds/chista/promotions.json`: title, description, dates and state; a copyable public code; a link to the game and
+  how to redeem it. 404 (no feed route yet) shows nothing; other failures show a short fallback note. CSP unchanged.
+- Unit tests for the feed parser (untrusted input) and E2E tests for EN/FA rendering, copying, fallback and axe.
+
 - Contact: studio phone number 0936-964-2754 as a `tel:` link on the contact page (third channel), in the footer and in the `Organization` structured data; Persian digits on Persian pages.
 - Contact copy mentions calling; footer column heading is now "Get in touch".
 - E2E checks for the phone link on both contact pages and in the footer.

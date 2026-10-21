@@ -131,6 +131,24 @@ const en = {
     } satisfies Record<GameSlug, GameStory>,
   },
 
+  promotions: {
+    title: 'Gifts and offers',
+    intro: 'Public gifts and offers from the Chista team. Copy a code, open the game and enter it in Profile › Gift code.',
+    active: 'Active now',
+    soon: 'Starting soon',
+    soldOut: 'All claimed',
+    from: 'From',
+    until: 'Until',
+    noEnd: 'No end date',
+    codeLabel: 'Code',
+    copy: 'Copy code',
+    copied: 'Copied',
+    open: 'Open Chista',
+    redeemHint: 'Redeem it in the game: Profile › Gift code.',
+    unavailable: 'Current gifts could not be loaded right now. Open the game to see what is available.',
+    types: { GIFT_CODE: 'Gift code', DISCOUNT_CODE: 'Discount code', SHOP_SALE: 'Shop sale' },
+  },
+
   about: {
     label: 'About the studio',
     title: ['A studio', 'for distinct', 'worlds.'],
@@ -330,6 +348,24 @@ const fa: Copy = {
         note: 'نسخهٔ تازهٔ یاریزان در حال آماده‌سازی است. اطلاعات دسترسی و پشتیبانی، هر وقت آماده شود، در وب‌سایت رسمی آن اعلام می‌شود.',
       },
     },
+  },
+
+  promotions: {
+    title: 'هدیه‌ها و پیشنهادها',
+    intro: 'هدیه‌ها و پیشنهادهای عمومی تیم چیستا. کد را کپی کنید، بازی را باز کنید و در «نمایه › کد هدیه» وارد کنید.',
+    active: 'فعال',
+    soon: 'به‌زودی',
+    soldOut: 'ظرفیت تمام شد',
+    from: 'از',
+    until: 'تا',
+    noEnd: 'بدون تاریخ پایان',
+    codeLabel: 'کد',
+    copy: 'کپی کد',
+    copied: 'کپی شد',
+    open: 'ورود به چیستا',
+    redeemHint: 'در بازی وارد کنید: «نمایه › کد هدیه».',
+    unavailable: 'فهرست هدیه‌ها الان بارگیری نشد. برای دیدن هدیه‌های فعال، بازی را باز کنید.',
+    types: { GIFT_CODE: 'کد هدیه', DISCOUNT_CODE: 'کد تخفیف', SHOP_SALE: 'حراج فروشگاه' },
   },
 
   about: {

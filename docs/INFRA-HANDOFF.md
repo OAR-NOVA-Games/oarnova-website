@@ -107,7 +107,39 @@ empty body (CDN did not substitute an error page); `/healthz` 200 `no-store`.
   `docker compose up -d --force-recreate` in `/opt/oarnova/apps/studio`.
 - None of these touch YariZan, Traefik routing, origin lockdown, database volumes or game infrastructure.
 
-## 6. Explicitly out of scope
+## 6. Chista promotions feed (owner GO required, not part of the cut-over)
+
+The Chista page shows public CHISTA gifts and offers read at runtime from **this site's own origin**:
+`GET https://oarnova.games/feeds/chista/promotions.json`. The CSP stays `default-src 'self'` and a new campaign
+needs no website release. Until the route below exists the request answers 404 and the page shows no promotion
+section (a 5xx or timeout shows a short fallback note with a link to the game).
+
+The feed itself is CHISTA's public, read-only endpoint `GET /api/v1/public/promotions` (no credentials, public
+fields only: titles, descriptions, dates, state and, only when the owner allowed it, a shared code; never one-time
+codes, probabilities, limits or player data; `Cache-Control: public, max-age=120`). Proposed Traefik dynamic
+configuration (Traefik is already on the Chista ingress network):
+
+```yaml
+http:
+  routers:
+    studio-chista-promotions:
+      entryPoints: [websecure]
+      rule: 'Host(`oarnova.games`) && Path(`/feeds/chista/promotions.json`)'
+      priority: 300
+      service: chista-beta-api # the CHISTA API service of the deployed environment
+      middlewares: [chista-promotions-feed@file]
+      tls: { certResolver: le }
+  middlewares:
+    chista-promotions-feed:
+      replacePath: { path: /api/v1/public/promotions }
+```
+
+Only that exact path is routed: no other CHISTA API path becomes reachable on the studio host. Verify after
+applying: `curl -fsS https://oarnova.games/feeds/chista/promotions.json` returns JSON with `campaigns`, and the
+Chista page shows a campaign marked public in the CHISTA Admin Console. Rollback: remove the router (the page
+then shows no promotion section).
+
+## 7. Explicitly out of scope
 
 No SSH keys or deploy credentials in GitHub Actions. No automatic deployment from any branch,
 tag or pull request. No new subdomain, container, port, database, analytics or third-party service.
